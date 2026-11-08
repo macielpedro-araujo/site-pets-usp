@@ -1,0 +1,24 @@
+.pagina {
+  text-align: center;
+  padding-top: 64px;
+}
+
+.codigo {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 0 20px;
+  background: var(--color-highlight);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 1.2;
+  color: var(--color-primary-dark);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}

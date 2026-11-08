@@ -1,0 +1,79 @@
+.carrossel {
+  position: relative;
+}
+
+.janela {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.trilho {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-primary-dark);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.seta:hover {
+  background: var(--color-white);
+}
+
+.esquerda {
+  left: 12px;
+}
+
+.direita {
+  right: 12px;
+}
+
+.pontos {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.ponto,
+.pontoAtivo {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.ponto {
+  background: #c8c8c8;
+}
+
+.pontoAtivo {
+  background: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trilho {
+    transition: none;
+  }
+}

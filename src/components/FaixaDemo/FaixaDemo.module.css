@@ -1,0 +1,8 @@
+.faixa {
+  margin: 0;
+  padding: 6px var(--gutter);
+  background: #fff3c4;
+  color: #6b5200;
+  font-size: 0.8rem;
+  text-align: center;
+}

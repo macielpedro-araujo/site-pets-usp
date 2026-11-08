@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  padding: 20px;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.logo {
+  max-width: 85%;
+  max-height: 75%;
+  object-fit: contain;
+  /* os logos provisórios têm fundo branco: "multiply" faz o branco sumir no cinza */
+  mix-blend-mode: multiply;
+  width: 100%;
+  height: auto;
+}

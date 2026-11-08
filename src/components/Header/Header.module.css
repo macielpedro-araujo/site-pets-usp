@@ -1,0 +1,179 @@
+.topo {
+  background: var(--color-white);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 92px;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.logo {
+  width: 160px;
+  height: auto;
+}
+
+.titulos {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-text);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.titulo {
+  color: var(--color-heading);
+  font-size: 1.35rem;
+}
+
+.subtitulo {
+  color: var(--color-muted);
+  font-size: 1.2rem;
+}
+
+.barra {
+  background: var(--color-primary);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lista {
+  display: flex;
+  gap: 48px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  display: block;
+  padding: 12px 0;
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+
+.link:hover,
+.ativo {
+  border-bottom-color: var(--color-yellow);
+}
+
+/* Link discreto para login (acréscimo, não está no Figma) */
+.linkArea {
+  color: var(--color-white);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-small);
+}
+
+.linkArea:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.botaoMenu {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* Celular: barra vira menu hambúrguer */
+@media (max-width: 760px) {
+  .marca {
+    min-height: 72px;
+  }
+
+  .logo {
+    width: 104px;
+  }
+
+  .logoLink {
+    gap: 12px;
+  }
+
+  .titulo {
+    font-size: 0.9rem;
+  }
+
+  .subtitulo {
+    font-size: 0.8rem;
+  }
+
+  .botaoMenu {
+    display: block;
+  }
+
+  .barra {
+    min-height: 8px;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 12px;
+  }
+
+  .menuAberto {
+    display: flex;
+  }
+
+  .lista {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .link {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .ativo {
+    border-bottom-color: var(--color-yellow);
+  }
+
+  .linkArea {
+    margin-top: 12px;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo {
+    width: 84px;
+  }
+
+  .titulo {
+    font-size: 0.8rem;
+  }
+
+  .subtitulo {
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 330px) {
+  .titulos {
+    display: none;
+  }
+}

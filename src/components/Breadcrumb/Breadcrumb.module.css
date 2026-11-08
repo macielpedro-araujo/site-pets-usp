@@ -1,0 +1,32 @@
+.breadcrumb {
+  padding: 16px 0 8px;
+  font-size: 0.8rem;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb li + li::before {
+  content: '›';
+  margin: 0 8px;
+  color: var(--color-muted);
+}
+
+.breadcrumb a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+  color: var(--color-primary);
+  font-weight: 600;
+}

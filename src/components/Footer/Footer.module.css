@@ -1,0 +1,63 @@
+.rodape {
+  margin-top: auto;
+  border-top: 1px solid var(--color-border);
+}
+
+.bloco {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  font-size: 0.9rem;
+}
+
+.nome {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-heading);
+}
+
+.sub {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.links a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.mantido {
+  margin: 0;
+  max-width: 260px;
+}
+
+.faixaTeal {
+  height: 28px;
+  background: var(--color-teal);
+  margin-bottom: 14px;
+}
+
+.faixaAmarela {
+  height: 28px;
+  background: var(--color-yellow);
+  margin-bottom: 20px;
+}

@@ -1,0 +1,46 @@
+.carrossel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trilho {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  list-style: none;
+  margin: 0;
+  padding: 8px 4px 12px;
+  scrollbar-width: thin;
+}
+
+.trilho > li {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+.seta {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-primary-dark);
+  cursor: pointer;
+}
+
+.seta:hover {
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 600px) {
+  .seta {
+    display: none;
+  }
+}

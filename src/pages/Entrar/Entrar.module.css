@@ -1,0 +1,105 @@
+.pagina {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  padding-top: 48px;
+}
+
+.cartao {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  border-top: 6px solid var(--color-primary);
+  border-radius: var(--radius);
+}
+
+.cartao h1 {
+  font-size: 1.8rem;
+}
+
+.intro {
+  font-size: 0.95rem;
+}
+
+.entrar {
+  width: 100%;
+}
+
+.esqueci {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  text-decoration: underline;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.nota {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.demo {
+  width: 100%;
+  max-width: 340px;
+  padding: 24px;
+  background: #fff8e1;
+  border: 1px dashed var(--color-yellow);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+
+.demo h2 {
+  font-size: 1.2rem;
+}
+
+.demo ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.demo button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  text-align: left;
+  cursor: pointer;
+}
+
+.demo button:hover {
+  border-color: var(--color-primary);
+}
+
+.demo button span {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+@media (max-width: 480px) {
+  .cartao {
+    padding: 24px 20px;
+  }
+}

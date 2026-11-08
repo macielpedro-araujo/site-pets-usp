@@ -1,0 +1,59 @@
+.papeis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.card {
+  padding: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 5px solid var(--color-teal);
+  border-radius: var(--radius);
+}
+
+.card h2,
+.secao h2 {
+  font-family: var(--font-text);
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.card p {
+  margin: 0;
+}
+
+.secao {
+  margin-bottom: 40px;
+}
+
+.documentos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.documentos li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.documentos a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.emBreve {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+  .papeis {
+    grid-template-columns: 1fr;
+  }
+}

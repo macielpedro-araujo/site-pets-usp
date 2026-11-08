@@ -1,0 +1,24 @@
+.main {
+  flex: 1;
+  padding-bottom: 64px;
+}
+
+.main:focus {
+  outline: none;
+}
+
+/* Link de acessibilidade: só aparece ao receber foco pelo teclado */
+.pular {
+  position: absolute;
+  left: 8px;
+  top: -60px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--radius-small);
+}
+
+.pular:focus {
+  top: 8px;
+}

@@ -1,0 +1,37 @@
+/* Design tokens medidos nas capturas do Figma (docs/figma-refs). Ver SPEC §4.1 */
+:root {
+  --color-primary: #2b17d0;
+  --color-primary-dark: #222093;
+  --color-heading: #3f4092;
+  --color-muted: #afafaf;
+  --color-text: #555555;
+  --color-highlight: #f9d057;
+  --color-accent-shadow: #fec23d;
+  --gradient-cta: linear-gradient(90deg, #ff9002, #fab905);
+  --color-teal: #009aad;
+  --color-yellow: #ffb801;
+  --color-surface: #f5f5f5;
+  --color-border: #e3e3e3;
+  --color-white: #ffffff;
+  --color-danger: #c62828;
+  --color-success: #2e7d32;
+
+  /* Cores dos status dos pedidos (SPEC §6.8) */
+  --status-pendente-bg: #fff3c4;
+  --status-pendente-text: #7a5a00;
+  --status-andamento-bg: #e1e4ff;
+  --status-andamento-text: #2b17d0;
+  --status-concluido-bg: #dcf2df;
+  --status-concluido-text: #1e6b2a;
+  --status-recusado-bg: #f6e0e0;
+  --status-recusado-text: #9b2c2c;
+
+  --font-title: 'Ubuntu', system-ui, sans-serif;
+  --font-text: 'Open Sans', system-ui, sans-serif;
+
+  --radius: 12px;
+  --radius-small: 8px;
+  --container: 1100px;
+  --gutter: 24px;
+  --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.1);
+}

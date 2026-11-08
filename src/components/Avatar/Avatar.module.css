@@ -1,0 +1,17 @@
+.avatar {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.iniciais {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+  font-family: var(--font-title);
+  font-weight: 700;
+}
