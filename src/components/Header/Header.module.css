@@ -21,6 +21,19 @@
   height: auto;
 }
 
+.beta {
+  align-self: flex-start;
+  margin-left: -12px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--color-highlight);
+  color: var(--color-primary-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .titulos {
   display: flex;
   flex-direction: column;
