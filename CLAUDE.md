@@ -20,5 +20,5 @@ As referências visuais do protótipo do Figma estão em `docs/figma-refs/`. Abr
 - `npm run lint`: lint (oxlint)
 
 ## Prazo
-Apresentação na **sexta, 13/11/2026**: tudo da SPEC §2 precisa estar funcionando.
+Apresentação na **sexta, 13/11/2026**: tudo da SPEC §2 precisa estar funcionando, como **versão de demonstração (beta)**.
 Siga a ordem da SPEC §9 e confira a §10 antes de dar por pronto.

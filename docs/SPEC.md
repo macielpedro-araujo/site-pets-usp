@@ -26,6 +26,11 @@
 
 **Fora do escopo agora:** edição de conteúdo pelo próprio PET (publicação direta), notícias automáticas do Jornal da USP, domínio usp.br e i18n.
 
+**Versão de demonstração (beta).** Requisitos:
+- Um selo **"Beta"** discreto ao lado do logo no cabeçalho.
+- Uma faixa fina no topo de todas as páginas: *"Versão de demonstração — conteúdos ilustrativos, sujeitos a validação pelos grupos PET."*, controlada por uma constante `MODO_BETA` em `src/config.js`, para ser desligada no lançamento.
+- O conteúdo provisório dos PETs deve parecer bem acabado visualmente, mas **sem dados pessoais reais**: nada de nomes e fotos de alunos reais (use avatares genéricos e nomes fictícios claramente de exemplo, como "Membro 1").
+
 ## 3. Stack e restrições
 
 - **React + Vite com JavaScript puro (sem TypeScript).** A equipe não usa TS.
@@ -336,6 +341,7 @@ docs/SPEC.md, docs/figma-refs/
 - Um PET **não** consegue ver pedidos de outro PET, nem acessar `/painel`.
 - O layout funciona em 375 px, 768 px e 1280 px.
 - Visual fiel às capturas em `docs/figma-refs/` (cores, fontes, cabeçalho, rodapé, títulos com fundo amarelo, cards).
+- Selo "Beta" e faixa de versão de demonstração visíveis e desligáveis por `MODO_BETA`. Nenhum dado pessoal real no conteúdo de exemplo.
 
 ## 11. Pendências e perguntas em aberto
 
@@ -346,3 +352,4 @@ docs/SPEC.md, docs/figma-refs/
 - Repositório definitivo (GitHub do PET?) e hospedagem/domínio final.
 - Criar o projeto no Supabase e as contas de cada PET (e definir quem do CEPETUSP terá perfil `cepet`).
 - LGPD: ter o consentimento dos membros para publicar foto e nome.
+
