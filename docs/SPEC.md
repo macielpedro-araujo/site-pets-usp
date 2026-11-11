@@ -1,5 +1,8 @@
 # Site Oficial dos PETs USP — Especificação
 
+> **⚠️ Atualização de 11/11/2026:** partes deste documento foram substituídas por [`docs/SPEC-v2.md`](SPEC-v2.md)
+> (sem "Beta", cada PET edita a própria página, fotos reais, 21 PETs). Em caso de conflito, vale o v2.
+
 > Documento de referência para quem for construir o site (pessoas ou agente de código).
 > Última atualização: 08/11/2026. **Apresentação: sexta, 13/11/2026.**
 

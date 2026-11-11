@@ -1,14 +1,16 @@
 # Site Oficial dos PETs USP
 
 Site geral dos grupos PET da USP, mantido pelo PET Computação (ICMC-USP), na frente CEPETUSP.
-**Leia `docs/SPEC.md` antes de qualquer coisa**: ele tem o contexto, o escopo, o design, as rotas, os dados, o Supabase e os critérios de aceite.
+**Leia `docs/SPEC.md` e depois `docs/SPEC-v2.md` antes de qualquer coisa.** A SPEC tem o contexto, o design, as rotas e os critérios de aceite. A **v2 (11/11) prevalece em caso de conflito**: sem "Beta", cada PET edita a própria página (conteúdo no Supabase), fotos reais e 21 PETs.
 As referências visuais do protótipo do Figma estão em `docs/figma-refs/`. Abra as imagens antes de construir cada página.
 
 ## Regras do projeto
 - React + Vite com **JavaScript puro**. Não use TypeScript (a equipe não usa).
 - Estilo com **CSS Modules** + variáveis em `src/styles/tokens.css`. Sem Tailwind e sem bibliotecas de componentes.
 - Rotas com `react-router-dom`. Backend com Supabase **só através de `src/services/`**.
-- O site precisa funcionar sem Supabase (**modo demonstração** com `localStorage`), como descrito em SPEC §7.4.
+- O site precisa funcionar sem Supabase (**modo demonstração** com `localStorage`), como descrito em SPEC-v2 §2.3, mas **sem nenhuma faixa ou selo de "demonstração" visível** no site público.
+- Nunca invente dados pessoais (nomes, fotos ou tutores) de PETs reais. Seções sem conteúdo mostram um estado vazio.
+- Toda foto de terceiros precisa de licença compatível e crédito registrado em `public/fotos/creditos.json`.
 - Interface, comentários e mensagens de commit em português (pt-BR).
 - Código simples e legível: quem vai manter são alunos de graduação aprendendo React. Prefira componentes pequenos e nomes claros, e evite abstrações desnecessárias.
 - Conteúdo público (PETs, notícias, textos) fica em `src/content/`. Texto provisório deve ser marcado com `TODO`, e não invente fatos que pareçam reais.
@@ -20,5 +22,4 @@ As referências visuais do protótipo do Figma estão em `docs/figma-refs/`. Abr
 - `npm run lint`: lint (oxlint)
 
 ## Prazo
-Apresentação na **sexta, 13/11/2026**: tudo da SPEC §2 precisa estar funcionando, como **versão de demonstração (beta)**.
-Siga a ordem da SPEC §9 e confira a §10 antes de dar por pronto.
+Apresentação aos tutores dos PETs na **sexta, 13/11/2026**. Confira os critérios da SPEC §10 e da SPEC-v2 §7 antes de dar por pronto.
