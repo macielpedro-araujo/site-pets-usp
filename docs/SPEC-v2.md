@@ -1,7 +1,8 @@
 # SPEC v2 — Alterações de 11/11/2026
 
 > Este documento **substitui** as partes correspondentes de `docs/SPEC.md`. Em caso de conflito, vale este.
-> Seções da SPEC original afetadas: §2 (beta), §5 (rotas da área/painel), §6.5–§6.8, §7.1, §7.3, §7.4, §11.
+> Seções da SPEC original afetadas: §2 (beta), §5 (rotas da área/painel), §6.1 (notícias), §6.5–§6.8, §7.1–§7.4, §11.
+> Revisado às 22h30 de 11/11: continuam **22 PETs**, as **notícias** têm um editor próprio (secretaria) e o **banco de dados ainda não foi decidido**. Por isso, nada de Supabase agora: veja §2.1.
 > Ao terminar a implementação, incorpore este conteúdo ao `SPEC.md` e apague este arquivo.
 
 ## 1. O que mudou
@@ -13,79 +14,59 @@ Principais mudanças:
 3. **Fotos reais** no site.
 4. **Página do PET Computação completa e real**, como vitrine de como as páginas vão ficar.
 5. Os logos estão em baixa resolução e precisam ser trocados.
-6. Identificação dos logos sem nome:
+6. **Notícias** da Home: quem publica é o **secretário(a) do PET USP**, não os PETs. As notícias falam do programa como um todo (eventos em comum, CEPETUSP etc.), não de um PET específico. Ver §2.5.
+7. Identificação dos logos sem nome:
    - o **pássaro rosa** (`pet-mariposa`) é o **PET Filosofia** (FFLCH, São Paulo);
-   - a **árvore** (`pet-arvore`) é o logo do **Cursinho Popular do PET-Medicina**, projeto do **PET FMRP** (Medicina de Ribeirão Preto), que já tem card próprio (`fmrp`). Ou seja, é um card **duplicado**: remova `pet-arvore`, porque são 21 PETs e não 22. Deixe isso anotado nas pendências para confirmação com a frente.
+   - a **árvore** (`pet-arvore`) é o logo do **Cursinho Popular do PET-Medicina**, que é gerido pelo PET FMRP. Pode ser um card duplicado do `fmrp`, mas a frente decidiu **manter os 22 cards do Figma** até discutir isso. **Não remova `pet-arvore`.** Exiba como "PET Medicina – Cursinho Popular" (unidade FMRP, Ribeirão Preto, Ciências da Saúde) e registre a dúvida nas pendências.
 
 ## 2. Novo modelo: cada PET edita a própria página
 
-### 2.1 Impacto no banco de dados
+### 2.1 Banco de dados: ainda NÃO decidido
 
-**Antes:** o conteúdo ficava em arquivos `.js` no repositório, e o banco guardava só contas e pedidos.
-**Agora:** o conteúdo das páginas precisa estar **no banco**, porque quem edita não tem acesso ao repositório e a mudança tem que valer sem novo deploy.
+O site será hospedado pela **Reitoria** (domínio **usp.br**, não icmc.usp.br, porque atende vários PETs) numa **VM**. O banco será decidido junto com o professor que administra os bancos de dados do ICMC. Portanto:
 
-| Tabela / bucket | Situação | Para quê |
-|---|---|---|
-| `profiles` | **mantém** | liga cada conta a um PET (`pet_slug`) ou ao CEPETUSP (`perfil = 'cepet'`). Um PET pode ter mais de uma conta (tutor e membros autorizados). |
-| `pets` | **nova** | conteúdo de cada página (uma linha por PET). Leitura pública; escrita só pelo próprio PET ou pelo CEPETUSP. |
-| `pets_versoes` | **nova** | histórico automático (trigger): toda alteração salva a versão anterior. Permite ao CEPETUSP **desfazer** uma edição errada ou vandalismo, sem precisar aprovar nada antes. |
-| bucket `fotos-pets` | **novo, público** | imagens enviadas pelos PETs (logo, capa, grupo, membros, projetos, galeria). Escrita só na pasta `<slug>/` do próprio PET. |
-| `solicitacoes` + bucket `anexos` | **sai** | não existe mais fila de pedidos. Remova tabelas, policies, telas e serviços. |
+- **Não escreva código específico de um provedor** (Supabase, Firebase etc.) agora. Apague a pasta `supabase/` e o `services/supabaseClient.js` (o histórico do git guarda o que existia). Remova também `@supabase/supabase-js` do `package.json`.
+- **Para a apresentação, tudo roda no modo local** (`localStorage`), que já existe. Não há banco nem servidor, e o site funciona igual na frente dos tutores.
+- A **camada de serviço** (§2.3) é o "contrato": as páginas só falam com `src/services/`. Quando o backend for escolhido, só os arquivos de `services/` mudam.
+- Escreva **`docs/modelo-de-dados.md`**, o documento para levar à reunião com o professor de BD. Ele deve conter:
+  - as entidades (abaixo) com seus campos;
+  - quem pode ler e escrever o quê (tabela de permissões);
+  - o fluxo de login (contas criadas pelo CEPETUSP, sem cadastro público);
+  - o armazenamento de imagens (onde ficam, limites de tamanho e tipo);
+  - o histórico de versões (para desfazer edições);
+  - os requisitos não funcionais: HTTPS, backups, LGPD (fotos e nomes de alunos), quem administra as contas e quantas pessoas usam (≈ 22 PETs + CEPETUSP + secretaria);
+  - as **opções de arquitetura**, para o professor escolher, cada uma com prós e contras curtos e sem recomendação fechada: PostgreSQL na VM + uma API pequena (Node/Express, por exemplo); Supabase *self-hosted* na VM; serviço gerenciado externo;
+  - as perguntas em aberto: autenticação pela conta USP (Senha Única)? quem faz backup? limite de armazenamento?
 
-### 2.2 Tabela `pets`
+### 2.2 Entidades e permissões (independentes de tecnologia)
 
-```sql
-create table public.pets (
-  slug text primary key,
-  -- campos estruturais (só o CEPETUSP altera)
-  nome text not null,
-  unidade text,
-  campus text,
-  area text not null,
-  ano_criacao int,
-  site_externo text,
-  ativo boolean not null default true,
-  -- conteúdo (o próprio PET altera)
-  logo_url text,
-  cor_destaque text check (cor_destaque is null or cor_destaque ~ '^#[0-9a-fA-F]{6}$'),
-  foto_capa_url text,
-  foto_grupo_url text,
-  sobre text[] not null default '{}',          -- parágrafos
-  tutor jsonb not null default '{}',           -- { nome, foto, descricao }
-  membros jsonb not null default '[]',         -- [{ nome, curso, foto }]
-  projetos jsonb not null default '[]',        -- [{ titulo, descricao, imagem, link }]
-  galeria jsonb not null default '[]',         -- [{ src, legenda }]
-  redes jsonb not null default '{}',           -- { instagram, linktree, linkedin, youtube, telegram, site }
-  email text,
-  endereco text,
-  atualizado_em timestamptz not null default now(),
-  atualizado_por uuid references auth.users
-);
-```
+| Entidade | Campos principais | Leitura | Escrita |
+|---|---|---|---|
+| **Conta** | id, nome, e-mail, perfil (`pet` · `cepet` · `secretaria`), pet_slug (só perfil `pet`) | a própria conta; CEPETUSP vê todas | só o CEPETUSP cria e desativa contas |
+| **PET** | slug, nome, unidade, campus, área, ano_criacao, site_externo, ativo (*estruturais*); logo, cor_destaque, foto_capa, foto_grupo, sobre[], tutor{}, membros[], projetos[], galeria[], redes{}, email, endereco (*conteúdo*); atualizado_em, atualizado_por | público | conteúdo: o próprio PET ou o CEPETUSP; estruturais: só o CEPETUSP |
+| **Versão de PET** | id, pet_slug, dados (cópia completa), editado_por, editado_em | o próprio PET e o CEPETUSP | automática a cada alteração; só o CEPETUSP restaura |
+| **Notícia** | id, titulo, resumo, texto, imagem, link_externo, data_publicacao, publicada (bool), autor | público (só publicadas) | secretaria e CEPETUSP |
+| **Imagem** | caminho `<dono>/<arquivo>`, tipo, tamanho | público | só na pasta do próprio PET (`pets/<slug>/`) ou de notícias (`noticias/`, secretaria) |
 
-Regras (RLS e triggers), todas em `supabase/schema.sql`:
-- `select`: liberado para todos (`anon` inclusive) quando `ativo = true`. O CEPETUSP vê todos.
-- `update`: `meu_pet() = slug` **ou** `meu_perfil() = 'cepet'`.
-- `insert`/`delete`: só o CEPETUSP.
-- **Trigger `before update`:** se quem edita não é CEPETUSP, bloqueia mudanças nos campos estruturais (`slug, nome, unidade, campus, area, ano_criacao, site_externo, ativo`), preenche `atualizado_em = now()` e `atualizado_por = auth.uid()`.
-- **Trigger `after update`:** insere a linha antiga em `pets_versoes (id, pet_slug, dados jsonb, editado_por, editado_em)`. `select` em `pets_versoes`: PET vê as próprias versões, CEPETUSP vê todas. Ninguém altera ou apaga versões pelo cliente.
-- Limites de tamanho no banco (ex.: `check (array_length(sobre,1) <= 10)`, `jsonb_array_length(membros) <= 60`, `projetos <= 30`, `galeria <= 30`). Assim um erro não vira um registro gigante.
+Limites sugeridos: imagens até 5 MB (jpeg, png, webp); até 10 parágrafos no "sobre", 60 membros, 30 projetos e 30 fotos na galeria.
 
-Bucket `fotos-pets`: público para leitura; `insert/update/delete` só quando `(storage.foldername(name))[1] = meu_pet()` ou o usuário é CEPETUSP. Configure `file_size_limit` de 5 MB e `allowed_mime_types` = jpeg, png e webp.
-
-**Seed:** um script `scripts/gerar-seed.mjs` lê `src/content/pets/*.js` e gera `supabase/seed.sql` com os `insert` dos 21 PETs. Os arquivos `.js` continuam no repositório como **conteúdo inicial** e **fallback do modo demonstração**.
+**Seed:** os arquivos `src/content/pets/*.js` e `src/content/noticias.js` continuam sendo o **conteúdo inicial**. O modo local parte deles, e no futuro eles servem para popular o banco.
 
 ### 2.3 Camada de serviço
 
 Substitua `services/solicitacoes.js` e `services/demo/solicitacoesDemo.js` por:
 
 ```
-services/pets.js          listarPets(), buscarPet(slug), atualizarPet(slug, campos),
-                          enviarImagem(slug, arquivo, pasta) → url,
-                          listarVersoes(slug), restaurarVersao(slug, idVersao)   // restaurar: só CEPET
-services/demo/petsDemo.js mesma interface: conteúdo dos arquivos .js + alterações salvas no localStorage
-                          (imagens como data URL redimensionada; avise se o localStorage encher)
+services/pets.js        listarPets(), buscarPet(slug), atualizarPet(slug, campos),
+                        enviarImagem(dono, arquivo) → url,
+                        listarVersoes(slug), restaurarVersao(slug, idVersao)       // restaurar: só CEPET
+services/noticias.js    listarNoticias({ incluirRascunhos }), buscarNoticia(id),
+                        salvarNoticia(dados), excluirNoticia(id)                    // secretaria e CEPET
+services/auth.js        entrar, sair, usuarioAtual, aoMudarSessao (já existe)
+services/local/         implementação de TUDO acima com localStorage (o atual "demo/", renomeado)
 ```
+
+Cada função de `services/` delega para `services/local/` e tem um comentário curto dizendo o que o backend futuro precisa fazer (ex.: "o servidor deve conferir se a conta é do PET `slug` ou CEPET"). **Toda regra de permissão também é checada na implementação local**, para que o comportamento na apresentação seja o mesmo do sistema real. As imagens no modo local são salvas como data URL redimensionada; avise se o `localStorage` encher.
 
 - As páginas públicas (galeria, página do PET, cards da Home) passam a ler de `services/pets.js` (com estado de carregando e de erro), não mais importando os `.js` diretamente.
 - **Antes de enviar,** reduza a imagem no navegador (canvas, lado maior até 1600 px, WebP ou JPEG com qualidade 0,85).
@@ -112,11 +93,19 @@ services/demo/petsDemo.js mesma interface: conteúdo dos arquivos .js + alteraç
 - O nome da rota pode continuar `/area-do-pet`. Renomeie o link do cabeçalho para **"Área dos PETs"**.
 
 **`/painel` — CEPETUSP** (perfil `cepet`):
-- Lista dos 21 PETs: logo, nome, última alteração (data e autor) e indicadores de completude (tem capa? tem membros? tem projetos?).
+- Lista dos 22 PETs: logo, nome, última alteração (data e autor) e indicadores de completude (tem capa? tem membros? tem projetos?).
 - **Editar** abre o mesmo editor da Área do PET, para qualquer PET e com os campos estruturais liberados.
 - **Histórico** mostra as versões, com o botão "Restaurar esta versão" e confirmação.
 
-**Modo demonstração:** continua existindo, mas **sem faixas visíveis no site público**. As contas de teste aparecem só num quadro na página `/entrar`, e apenas quando não há Supabase configurado. As contas de teste viram `computacao@demo.pet` (PET), `filosofia@demo.pet` (PET) e `cepet@demo.pet` (CEPETUSP), todas com `demo1234`.
+**Modo local:** é o que roda na apresentação, **sem faixas visíveis no site público**. As contas de teste aparecem só num quadro discreto na página `/entrar`. As contas de teste viram `computacao@demo.pet` (PET), `filosofia@demo.pet` (PET), `cepet@demo.pet` (CEPETUSP) e `secretaria@demo.pet` (secretaria), todas com `demo1234`.
+
+### 2.5 Notícias (perfil `secretaria`)
+
+- Novo perfil **`secretaria`** (secretário/a do PET USP). Ele **não** edita páginas de PETs.
+- Rota **`/noticias-admin`** (perfil `secretaria` ou `cepet`): lista de notícias com status Publicada/Rascunho, botões novo, editar e excluir (com confirmação), e um formulário com título, resumo, texto, imagem (upload com redimensionamento), link externo opcional e data.
+- **Home:** "Últimas Notícias" mostra as 6 mais recentes já publicadas, lidas de `services/noticias.js`. Crie também **`/noticias`** (todas) e **`/noticias/:id`** (página da notícia; se tiver só link externo, o card abre o link).
+- O link do cabeçalho "Área dos PETs" leva cada perfil ao lugar certo: `pet` → editor da página, `secretaria` → notícias, `cepet` → painel (que tem atalho para as notícias).
+- Notícias iniciais: as de `src/content/noticias.js`, com fotos de campus da §5. Nada de notícias inventadas que pareçam reais: use textos claramente institucionais e genéricos ou marque com `TODO`.
 
 ## 3. Remover "Beta" e a faixa de demonstração
 
@@ -125,7 +114,7 @@ Apague `MODO_BETA` de `src/config.js`, os componentes `FaixaBeta`, `FaixaDemo` e
 ## 4. PETs: ajustes nos dados
 
 - `pet-mariposa` → renomear para **`filosofia`**: nome "PET Filosofia", unidade **FFLCH**, campus **São Paulo**, área **Ciências Humanas**, site `https://petfilosofia.fflch.usp.br`. Mova a pasta `public/pets/pet-mariposa` para `public/pets/filosofia`.
-- `pet-arvore` → **remover** (duplicado do PET FMRP; ver §1). Atualize `index.js`, os logos e os testes.
+- `pet-arvore` → **manter** (22 PETs). Nome de exibição "PET Medicina – Cursinho Popular", unidade FMRP, Ribeirão Preto, Ciências da Saúde, com um comentário `// TODO: confirmar com a frente se é duplicado do PET FMRP`.
 - `computacao` → já atualizado com **conteúdo real** em `src/content/pets/computacao.js` (texto, 16 membros, 8 atividades, redes, galeria). Os campos novos `fotoCapa`, `galeria` e `endereco` precisam ser suportados no template e no editor.
 - Demais PETs: **sem dados pessoais inventados.** Mostre logo, capa (foto do campus ou da unidade, ver §5), um parágrafo curto genérico e factual (ex.: "Grupo PET da FFLCH-USP, em São Paulo, na área de Ciências Humanas.") e, nas seções vazias, um estado vazio elegante: *"Esta seção ainda está sendo preenchida pelo grupo."* Não use mais "Membro de exemplo 1". Isso também mostra aos tutores o que eles mesmos vão preencher.
 
@@ -189,32 +178,30 @@ Crie `scripts/baixar-fotos.mjs` (Node 18+, `fetch` nativo, sem dependências) e 
 | ciencias-sociais, historia, filosofia | `fflch` |
 | computacao | foto própria |
 | direito-fdusp | `fd-largo-sao-francisco` |
-| direitos-fdrp, enfermagem-eerp, fmrp, quimica-rp | `campus-ribeirao` |
+| direitos-fdrp, enfermagem-eerp, fmrp, pet-arvore, quimica-rp | `campus-ribeirao` |
 | eefe | `campus-butanta` |
 | engenharia-de-alimentos, zootecnia-fzea | `campus-pirassununga` |
 | fonoaudiologia | `campus-bauru` |
 | iqsc, mecanica, mecatronica | `campus-sao-carlos` |
 | si-each | `each` |
 
-Depois do seed, as URLs passam a viver no banco. O PET pode trocar a capa pelo editor quando quiser.
+O PET pode trocar a capa pelo editor quando quiser.
 
 ## 6. Logos
 
-Os logos atuais são recortes de captura de tela, e as imagens dentro do próprio Figma também são pequenas. Faça na ordem:
+O Pedro tem acesso de editor no Figma. Ele testou "Copy as PNG" e as cópias saem pequenas (≈150 px), porque as próprias imagens dentro do Figma são pequenas. Faça assim:
 
-1. **Figma MCP:** o arquivo é `OhCHD6n1okEsLYDuLin22l`, e a grade de logos está no frame da página `/todos-os-pets-da-usp`, nó `19:735`. Use `download_assets` (campo `rawImages`, imagens originais) e salve cada uma em `public/pets/<slug>/logo.png`. Se o MCP responder "you don't have edit access", a conta do Figma conectada não é a que recebeu o convite de editor: avise o Pedro e siga para o passo 2.
-2. **Fallback manual (Pedro):** no Figma, selecione as imagens dos logos e use Export → PNG 3x. Coloque os arquivos numa pasta e o agente renomeia e move para `public/pets/<slug>/logo.png`.
-3. Para o PET Computação, use o logo do site oficial (§5.2).
-4. Depois, cada PET pode trocar o próprio logo no editor (§2.4), e esse é o caminho definitivo.
-
-Em todos os casos, mostre os logos com `object-fit: contain`, sem esticar, com `max-height` fixa no card.
+1. **Para a apresentação:** use as cópias do Figma. Elas são bem melhores que os recortes atuais (≈ 40–130 px). O Pedro vai salvar os PNGs numa pasta (ex.: `~/logos-figma/`). Renomeie e mova cada um para `public/pets/<slug>/logo.png`. No card, mostre o logo com `object-fit: contain` e `max-height` de ~96 px, **sem ampliar além do tamanho natural** (`max-width: 100%` e sem `width` fixa maior que a imagem), para não borrar.
+2. **Tente melhorar:** pelo Figma MCP (`download_assets`, nó `19:735` do arquivo `OhCHD6n1okEsLYDuLin22l`, campo `rawImages` = imagem original enviada ao Figma); ou peça ao Pedro para selecionar a imagem e usar o painel direito **Export → 4x → Export**. Se a original for maior que a exibida, sai nítida.
+3. **PET Computação:** use o logo do site oficial (§5.2), que tem 1268 px.
+4. **Definitivo:** cada PET envia o próprio logo em boa resolução pelo editor (§2.4).
 
 ## 7. Critérios de aceite (além dos da SPEC §10)
 
 - Nenhuma ocorrência visível de "Beta" ou "demonstração" no site público.
-- 21 PETs; o card do PET Filosofia aparece e `pet-arvore` não existe mais.
-- Modo demo: entrar como `computacao@demo.pet` → editar o "Sobre nós" e trocar a foto de um membro → salvar → a página pública mostra a mudança na hora. Entrar como `filosofia@demo.pet` → não consegue editar outro PET (nem pela URL). Entrar como `cepet@demo.pet` → vê os 21 PETs, edita qualquer um e restaura uma versão anterior.
-- `supabase/schema.sql` roda limpo num projeto novo, e `supabase/seed.sql` popula os 21 PETs. Quando possível, teste as policies com dois usuários reais.
+- 22 PETs; o card do PET Filosofia aparece com o nome certo.
+- Modo demo: entrar como `computacao@demo.pet` → editar o "Sobre nós" e trocar a foto de um membro → salvar → a página pública mostra a mudança na hora. Entrar como `filosofia@demo.pet` → não consegue editar outro PET (nem pela URL). Entrar como `cepet@demo.pet` → vê os 22 PETs, edita qualquer um e restaura uma versão anterior. Entrar como `secretaria@demo.pet` → cria uma notícia com foto, que aparece na Home; não consegue abrir o editor de nenhum PET. Um PET não consegue abrir `/noticias-admin`.
+- Nenhuma dependência ou código de provedor de banco. `docs/modelo-de-dados.md` está pronto para a reunião com o professor de BD.
 - Todas as fotos do Commons têm crédito em `/creditos`. Nenhuma foto sem licença compatível.
 - Home, página do PET Computação e página de um PET "vazio" ficam bonitas em 375 px e 1280 px. Tire screenshots e confira.
 - `npm run build` e `npm run lint` sem erros. README e SPEC atualizados.

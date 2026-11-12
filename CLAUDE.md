@@ -1,14 +1,14 @@
 # Site Oficial dos PETs USP
 
 Site geral dos grupos PET da USP, mantido pelo PET Computação (ICMC-USP), na frente CEPETUSP.
-**Leia `docs/SPEC.md` e depois `docs/SPEC-v2.md` antes de qualquer coisa.** A SPEC tem o contexto, o design, as rotas e os critérios de aceite. A **v2 (11/11) prevalece em caso de conflito**: sem "Beta", cada PET edita a própria página (conteúdo no Supabase), fotos reais e 21 PETs.
+**Leia `docs/SPEC.md` e depois `docs/SPEC-v2.md` antes de qualquer coisa.** A SPEC tem o contexto, o design, as rotas e os critérios de aceite. A **v2 (11/11) prevalece em caso de conflito**: sem "Beta", cada PET edita a própria página, notícias editadas pela secretaria, fotos reais e 22 PETs. **O banco de dados ainda não foi escolhido** (vai ser decidido com o professor de BD do ICMC; o site ficará numa VM da Reitoria, domínio usp.br).
 As referências visuais do protótipo do Figma estão em `docs/figma-refs/`. Abra as imagens antes de construir cada página.
 
 ## Regras do projeto
 - React + Vite com **JavaScript puro**. Não use TypeScript (a equipe não usa).
 - Estilo com **CSS Modules** + variáveis em `src/styles/tokens.css`. Sem Tailwind e sem bibliotecas de componentes.
-- Rotas com `react-router-dom`. Backend com Supabase **só através de `src/services/`**.
-- O site precisa funcionar sem Supabase (**modo demonstração** com `localStorage`), como descrito em SPEC-v2 §2.3, mas **sem nenhuma faixa ou selo de "demonstração" visível** no site público.
+- Rotas com `react-router-dom`. Todo acesso a dados passa **só por `src/services/`**. Não adicione nenhum provedor de banco (Supabase, Firebase etc.) até a decisão com o professor de BD.
+- Por enquanto, os dados ficam no **modo local** (`localStorage`), descrito em SPEC-v2 §2.3, com as regras de permissão checadas também nele, mas **sem nenhuma faixa ou selo de "demonstração" visível** no site público.
 - Nunca invente dados pessoais (nomes, fotos ou tutores) de PETs reais. Seções sem conteúdo mostram um estado vazio.
 - Toda foto de terceiros precisa de licença compatível e crédito registrado em `public/fotos/creditos.json`.
 - Interface, comentários e mensagens de commit em português (pt-BR).
