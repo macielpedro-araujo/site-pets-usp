@@ -1,55 +1,48 @@
 # Site Oficial dos PETs USP — Especificação
 
-> **⚠️ Atualização de 11/11/2026:** partes deste documento foram substituídas por [`docs/SPEC-v2.md`](SPEC-v2.md)
-> (sem "Beta", cada PET edita a própria página, fotos reais, 21 PETs). Em caso de conflito, vale o v2.
-
 > Documento de referência para quem for construir o site (pessoas ou agente de código).
-> Última atualização: 08/11/2026. **Apresentação: sexta, 13/11/2026.**
+> Última atualização: 12/11/2026 (incorpora as decisões de 11/11). **Apresentação aos tutores: sexta, 13/11/2026.**
 
 ---
 
 ## 1. Contexto
 
-- O **PET (Programa de Educação Tutorial)** é um programa do MEC com grupos de alunos de graduação orientados por um professor tutor, atuando no tripé **ensino, pesquisa e extensão**. A USP tem cerca de 22 grupos PET em vários campi.
+- O **PET (Programa de Educação Tutorial)** é um programa do MEC com grupos de alunos de graduação orientados por um professor tutor, atuando no tripé **ensino, pesquisa e extensão**. A USP tem 22 grupos PET (os do Figma) em vários campi.
 - O **PET Computação (ICMC-USP, São Carlos)** ficou responsável por criar o site geral dos PETs da USP. Quem cuida disso é a frente **CEPETUSP**, dentro do PET Computação.
-- **Prazo:** o site precisa estar funcionando na apresentação de **sexta, 13/11**.
-- **Ideia central:** o CEPETUSP mantém **todos** os sites. Os outros PETs não programam: eles **pedem** alterações (textos, fotos, membros, projetos) e o CEPETUSP aplica.
-  - Antes a ideia era um Google Forms, mas não dava pra saber quem estava pedindo. Por isso, **cada PET terá um login** e fará os pedidos por um formulário dentro do próprio site.
-  - O CEPETUSP tem um **painel** pra ver, responder e acompanhar os pedidos.
-- **Decisão de arquitetura:** é **um único site**. Cada PET tem uma página em `/pets/:slug` gerada a partir de um **template + arquivo de dados**. Se algum PET já tiver site próprio e preferir mantê-lo, o card dele aponta para o link externo (`siteExterno`).
-- O site do PET Computação **não** é uma dessas páginas padrão (ele é um site à parte). Aqui, o PET Computação aparece só como mais um card ou página padrão, como os outros.
+- O site é apresentado **como produto** (sem "Beta" nem faixas de demonstração).
+- **Ideia central:** **cada PET edita a própria página** (textos, fotos, membros, projetos, redes) pelo site, e a mudança **é publicada na hora**. Não há fila de pedidos. O CEPETUSP cria as contas, pode editar qualquer página e restaurar versões anteriores. As **notícias** da Home são publicadas pela **secretaria do PET USP** e falam do programa como um todo.
+- **Arquitetura:** é **um único site**. Cada PET tem uma página em `/pets/:slug`, gerada por um template a partir dos dados do PET. Se algum PET preferir manter o site próprio, o card aponta para o link externo (`siteExterno`).
+- **Hospedagem:** VM da **Reitoria**, domínio **usp.br** (não icmc.usp.br, porque atende vários PETs).
+- **Banco de dados: ainda NÃO decidido.** A escolha será feita com o professor que administra os bancos do ICMC. O documento para essa reunião é [`docs/modelo-de-dados.md`](modelo-de-dados.md). Até lá, tudo roda no **modo local** (§7.4).
 
-## 2. Escopo da entrega de 13/11 (tudo obrigatório)
+## 2. Escopo
 
-1. **Páginas públicas:** Home, Todos os PETs (com filtros e ordenação), Sobre o programa, Institucional, Página de cada PET (os 22) e página 404.
-2. **Login por PET** e **Área do PET**: criar um pedido de alteração (com anexos) e acompanhar os pedidos e seus status.
-3. **Painel do CEPETUSP:** lista de todos os pedidos com filtros, detalhe, mudança de status e resposta ao PET.
-4. **Modo demonstração:** se o Supabase não estiver configurado, o login e os pedidos funcionam com `localStorage` e contas de teste, para a apresentação nunca depender de backend.
-5. Responsivo (desktop e celular), deploy público (Vercel ou Netlify).
+1. **Páginas públicas:** Home, Todos os PETs (filtros e ordenação), Sobre o programa, Institucional, página de cada PET (os 22), Notícias (`/noticias` e `/noticias/:id`), Créditos das imagens e 404.
+2. **Login** (contas criadas pelo CEPETUSP, sem cadastro público) com três perfis: `pet`, `cepet` e `secretaria`.
+3. **Área do PET:** editor "Editar minha página", publicado na hora.
+4. **Painel do CEPETUSP:** lista dos 22 PETs com completude, o mesmo editor para qualquer PET (com os campos estruturais liberados) e o histórico com restauração.
+5. **Notícias:** administração pela secretaria (e pelo CEPETUSP).
+6. **Fotos reais:** campi (Wikimedia Commons, com crédito) e o PET Computação completo, como vitrine.
+7. Responsivo (desktop e celular).
 
-**Fora do escopo agora:** edição de conteúdo pelo próprio PET (publicação direta), notícias automáticas do Jornal da USP, domínio usp.br e i18n.
+**Fora do escopo agora:** banco/servidor reais (dependem da decisão de §1), notícias automáticas do Jornal da USP e i18n.
 
-**Versão de demonstração (beta).** Requisitos:
-- Um selo **"Beta"** discreto ao lado do logo no cabeçalho.
-- Uma faixa fina no topo de todas as páginas: *"Versão de demonstração — conteúdos ilustrativos, sujeitos a validação pelos grupos PET."*, controlada por uma constante `MODO_BETA` em `src/config.js`, para ser desligada no lançamento.
-- O conteúdo provisório dos PETs deve parecer bem acabado visualmente, mas **sem dados pessoais reais**: nada de nomes e fotos de alunos reais (use avatares genéricos e nomes fictícios claramente de exemplo, como "Membro 1").
+**Conteúdo:** nunca inventar dados pessoais (nomes, fotos, tutores) de PETs reais. Os PETs ainda não preenchidos mostram logo, capa (foto do campus), um parágrafo curto e factual ("Grupo PET da FFLCH-USP, em São Paulo, na área de Ciências Humanas.") e, nas seções vazias, o estado vazio *"Esta seção ainda está sendo preenchida pelo grupo."* Isso também mostra aos tutores o que eles mesmos vão preencher.
 
 ## 3. Stack e restrições
 
 - **React + Vite com JavaScript puro (sem TypeScript).** A equipe não usa TS.
-- **React Router** (`react-router-dom`, já instalado) com `BrowserRouter` e rotas declarativas.
-- **CSS Modules** (`*.module.css`) + variáveis CSS globais (design tokens em `src/styles/tokens.css`). **Sem** Tailwind e **sem** biblioteca de componentes. O código deve ser legível para alunos que estão aprendendo.
-- **Supabase** (`@supabase/supabase-js`, já instalado) para autenticação, banco (Postgres) e armazenamento de anexos.
-- Fontes: `@fontsource/ubuntu` (títulos) e `@fontsource/open-sans` (texto). Instale via npm.
-- Ícones: SVG inline em componentes próprios (`src/components/icons/`). Evitar libs grandes.
-- Carrossel: componente próprio simples (setas, pontinhos, swipe opcional). Nada de lib pesada.
-- Todo texto da interface em **português (pt-BR)**.
-- Comentários de código em português, curtos, explicando o porquê.
+- **React Router** (`react-router-dom`) com `BrowserRouter` e rotas declarativas.
+- **CSS Modules** (`*.module.css`) + variáveis CSS globais (`src/styles/tokens.css`). **Sem** Tailwind e **sem** biblioteca de componentes.
+- **Nenhum provedor de banco** (Supabase, Firebase etc.) até a decisão de §1. Todo acesso a dados passa por `src/services/`.
+- Fontes: `@fontsource/ubuntu` (títulos) e `@fontsource/open-sans` (texto).
+- Ícones: SVG inline em `src/components/icons/`. Carrosséis próprios e simples.
+- Todo texto da interface em **português (pt-BR)**; comentários de código em português, curtos, explicando o porquê.
 
 ## 4. Design (do protótipo no Figma)
 
 Arquivo: https://www.figma.com/site/OhCHD6n1okEsLYDuLin22l/SIte-Oficial-dos-PETs-USP
-O acesso de edição (necessário para o MCP do Figma) **ainda não existe**. As referências visuais estão em `docs/figma-refs/` (capturas de tela do protótipo). Os valores abaixo foram medidos nessas capturas, então são aproximados.
+O Pedro tem acesso de editor no Figma, mas a conta conectada ao MCP do Figma ainda não (ver §11). As referências visuais estão em `docs/figma-refs/` (capturas de tela do protótipo). Os valores abaixo foram medidos nessas capturas, então são aproximados.
 
 ### 4.1 Tokens
 
@@ -75,7 +68,7 @@ Fontes: títulos em **Ubuntu Bold**; texto em **Open Sans** (400/600/700). O tí
 ### 4.2 Componentes globais
 
 - **Cabeçalho** (`docs/figma-refs/05-cabecalho-200pct.jpg`): faixa branca com o logo **PET | USP** (`public/brand/logo-pet-usp.png`, provisório e em baixa resolução) + "Programa de Educação Tutorial" / "Na Universidade de São Paulo". Abaixo vem a **barra azul** (`--color-primary`) com os links brancos: *Todos os PETs da USP*, *Sobre o programa na USP*, *Institucional*.
-  - **Acréscimo (não está no Figma):** um link discreto **"Área dos PETs"** à direita da barra azul. Ele leva a `/entrar`, ou à área ou painel quando a pessoa já está logada.
+  - **Acréscimo (não está no Figma):** um link discreto **"Área dos PETs"** à direita da barra azul. Ele leva a `/entrar` ou, para quem já entrou, ao lugar do perfil: `pet` → editor da página, `secretaria` → notícias, `cepet` → painel.
   - No celular, a barra vira um menu hambúrguer.
 - **Rodapé** (`04-home-rodape.jpg`): duas faixas horizontais, uma **teal** (`#009AAD`) e uma **amarela** (`#FFB801`), separadas por uma faixa branca fina. Acrescente acima delas um bloco simples com o nome do programa, os links principais e "Mantido pelo PET Computação ICMC-USP (CEPETUSP)".
 - **Breadcrumb** pequeno no topo das páginas internas (ex.: `Início › Todos os PETs da USP`).
@@ -90,26 +83,28 @@ Fontes: títulos em **Ubuntu Bold**; texto em **Open Sans** (400/600/700). O tí
 | `/pets/:slug` | Página de um PET | público |
 | `/sobre-o-programa-na-usp` | Sobre o programa | público |
 | `/institucional` | Institucional | público |
+| `/noticias` | Todas as notícias publicadas | público |
+| `/noticias/:id` | Página de uma notícia | público (rascunhos só para quem edita notícias) |
+| `/creditos` | Créditos das imagens | público |
 | `/entrar` | Login | público |
-| `/area-do-pet` | Meus pedidos (lista) | perfil `pet` |
-| `/area-do-pet/novo` | Novo pedido | perfil `pet` |
-| `/area-do-pet/pedidos/:id` | Detalhe do pedido | perfil `pet` (só os do próprio PET) |
-| `/painel` | Todos os pedidos (CEPETUSP) | perfil `cepet` |
-| `/painel/pedidos/:id` | Detalhe com ações | perfil `cepet` |
+| `/area-do-pet` | Editar minha página | perfil `pet` |
+| `/painel` | Lista dos PETs (CEPETUSP) | perfil `cepet` |
+| `/painel/pets/:slug` | Editor de qualquer PET | perfil `cepet` |
+| `/painel/pets/:slug/historico` | Histórico de versões | perfil `cepet` |
+| `/noticias-admin` | Lista de notícias | perfis `secretaria` e `cepet` |
+| `/noticias-admin/nova`, `/noticias-admin/:id` | Formulário de notícia | perfis `secretaria` e `cepet` |
 | `*` | 404 | público |
 
-As rotas da Área do PET e do Painel ficam protegidas por um componente `<RotaProtegida perfil="pet|cepet">`, que redireciona para `/entrar`. Configure o *rewrite* de SPA no deploy (`vercel.json` já incluso).
+As rotas logadas usam `<RotaProtegida perfis={[...]}>`: quem não entrou vai para `/entrar`, e quem tem outro perfil vai para a própria área. **Isso só esconde a tela:** as permissões de verdade são checadas nos services (e, no futuro, no servidor). Configure o *rewrite* de SPA no deploy.
 
 ## 6. Páginas
 
 ### 6.1 Home (`01`, `02`, `03`, `04`, `06` em figma-refs)
-1. **Carrossel de destaque:** card grande cinza-claro arredondado, com troca automática a cada 6 s e pontinhos embaixo. Os slides vêm de `src/content/home.js` (imagem, título opcional, link opcional). Sem imagens reais, use placeholders.
+1. **Carrossel de destaque** (4 slides, troca a cada 6 s): fotos dos campi Cidade Universitária (Praça do Relógio), São Carlos, Piracicaba (ESALQ) e Ribeirão Preto, com legenda, título e link (`src/content/home.js`). Crédito pequeno sobre cada foto.
 2. **"Desde 1979" / "na Universidade de São Paulo"** (título de seção).
-3. Duas colunas:
-   - Esquerda: **"Rápida História dos PETs dentro da USP"**, parágrafo curto e o botão **"Veja mais!"** (gradiente laranja) que leva a `/sobre-o-programa-na-usp`.
-   - Direita: **"Conheça nossos pilares"**, com 3 cards (**Ensino** com ícone de capelo, **Pesquisa** com ícone de livro, **Extensão** com ícone de rede). Os cards são cinza-claros com borda; no *hover/foco*, ficam com borda e texto azuis e uma sombra amarela deslocada (como o card "Extensão" no Figma).
-4. **"Últimas Notícias" / "Jornal da USP sobre o PET":** grade de cards de notícia (imagem, data, título, resumo e link externo), vinda de `src/content/noticias.js`. Mostre até 6.
-5. Rodapé.
+3. Duas colunas: **"Rápida História dos PETs dentro da USP"** com o botão **"Veja mais!"**, e **"Conheça nossos pilares"** (Ensino, Pesquisa, Extensão), com o *hover* azul e a sombra amarela.
+4. **"Últimas Notícias"**: as **6 mais recentes já publicadas**, lidas de `services/noticias.js`, com miniatura, data, título e resumo. O card abre `/noticias/:id` ou, se a notícia tiver só link externo, o próprio link. Botão "Ver todas as notícias".
+5. Rodapé (com link para "Créditos das imagens").
 
 ### 6.2 Todos os PETs (`07`, `08`, `09`)
 - Breadcrumb. Título **"Galeria de Todos os Programas"** + subtítulo azul **"de Educação Tutorial da USP"** à esquerda.
@@ -118,78 +113,94 @@ As rotas da Área do PET e do Painel ficam protegidas por um componente `<RotaPr
   - *Área de Conhecimento:* chips de seleção múltipla: Ciências Humanas, Ciências Sociais Aplicadas, Ciências da Saúde, Engenharia, Ciências Exatas e da Terra, Ciências Agrárias.
   - *Campus USP:* `<select>` com "Selecionar" e depois a lista de campi presentes nos dados.
   - Mostre um link "Limpar filtros" e o contador "N programas".
-- **Grade de cards:** 4 colunas no desktop, 2 no tablet, 1 ou 2 no celular. Cada card tem fundo `--color-surface`, cantos arredondados e o logo centralizado. No *hover*, ele sobe levemente com sombra. Clicar leva a `/pets/:slug` (ou abre `siteExterno` em nova aba). O nome do PET fica em `alt` e `aria-label`.
+- **Grade de cards:** 4 colunas no desktop, 2 no tablet, 1 ou 2 no celular. Cada card tem fundo `--color-surface`, cantos arredondados e o logo centralizado. No *hover*, ele sobe levemente com sombra. Clicar leva a `/pets/:slug` (ou abre `siteExterno` em nova aba). O nome do PET fica em `alt` e `aria-label`. O logo aparece com `object-fit: contain` e `max-height` de 96 px, **sem largura fixa**, para nunca ser ampliado além do tamanho natural (não borrar). PETs com `ativo: false` não aparecem.
 - Mensagem amigável quando nenhum PET combina com os filtros.
 
 ### 6.3 Sobre o programa (`11`)
 - Título **"Sobre o Programa de Educação Tutorial"** + subtítulo amarelo **"na Universidade de São Paulo"**.
-- Seções: **História do PET na USP**, **O que é Educação Tutorial?** (com imagem à direita), **Como funciona um PET?** (com lista) e **Organograma** (imagem placeholder).
+- Seções: **História do PET na USP**, **O que é Educação Tutorial?** (com a foto `computacao/galeria/2025-imersao.png` à direita), **Como funciona um PET?** (com lista) e **Organograma** (imagem placeholder).
 - O conteúdo fica em `src/content/sobre.js`. **Os textos do Figma são lorem ipsum.** Escreva um texto provisório factual e curto (o PET foi criado em 1979 pela CAPES como *Programa Especial de Treinamento*, passou ao MEC/SESu e foi renomeado *Programa de Educação Tutorial* em 2004, e é regido pela Lei nº 11.180/2005 e pela Portaria MEC nº 976/2010; tripé ensino-pesquisa-extensão; grupo de até 12 bolsistas e um tutor) e marque com `// TODO: texto oficial`.
 
 ### 6.4 Institucional (`14`)
 - Está **vazia no Figma**. Crie uma página simples com: o papel da Pró-Reitoria de Graduação e do CLAA (Comitê Local de Acompanhamento e Avaliação), uma lista de documentos (links, em `src/content/institucional.js`) e o contato. Marque o conteúdo com `TODO`.
 
 ### 6.5 Página de um PET (`12` = V1 e V2, `13` = base)
-O conteúdo vem de `src/content/pets/<slug>.js`. As seções, na ordem da nota do Figma:
-1. **Topo:** nome ("PET Química"), logo, unidade e campus. Fundo em gradiente usando a `corDestaque` do PET (padrão: `--color-primary` → `--color-teal`).
-2. **Foto do grupo** grande e arredondada (com placeholder se faltar).
-3. **Membros:** carrossel de avatares redondos com nome e curso. Destaque o **tutor** separadamente.
-4. **Sobre nós:** parágrafos.
-5. **Atividades / Projetos Realizados:** carrossel de cards (imagem, título, descrição e link opcional).
-6. **Redes Sociais e contato:** Instagram, Linktree, LinkedIn, YouTube, site e e-mail. Mostre só o que existir.
-7. Rodapé global.
+Os dados vêm de `services/pets.js` (com estados de carregando e de erro). As seções, na mesma ordem do editor:
+1. **Capa:** faixa larga com a `fotoCapa` (foto da unidade ou do campus, ver §7.2) e um gradiente da `corDestaque` por cima (padrão: `--color-primary`); nome, "Programa de Educação Tutorial da USP", unidade · campus · área e o logo numa caixa branca. Crédito da foto no canto, quando for do Commons.
+2. **Foto do grupo** grande e arredondada (só aparece se existir).
+3. **Sobre nós:** parágrafos.
+4. **Membros:** tutor(a) em destaque e carrossel de avatares (foto ou iniciais) com nome e curso/frente.
+5. **Atividades e Projetos:** carrossel de cards (imagem, título, descrição e link opcional).
+6. **Galeria:** fotos com legenda.
+7. **Redes Sociais e Contato:** Instagram, Linktree, LinkedIn, YouTube, Telegram, site, e-mail e endereço (só o que existir).
 
-Seções sem dados não aparecem. No fim da página, coloque uma linha discreta: *"Faz parte deste PET? Peça alterações na Área dos PETs."*
+As seções 3 a 7 sem dados mostram o estado vazio *"Esta seção ainda está sendo preenchida pelo grupo."* No fim da página: *"Faz parte deste PET? Edite esta página na Área dos PETs."*
 
 ### 6.6 Login (`/entrar`)
-E-mail + senha e o botão "Entrar". Sem cadastro público: o texto diz que as contas são criadas pelo CEPETUSP. Também tem o link "Esqueci minha senha" (Supabase `resetPasswordForEmail`; no modo demo, mostra um aviso). No modo demo, mostre um quadro com as contas de teste.
+E-mail + senha e o botão "Entrar". Sem cadastro público: o texto diz que as contas são criadas pelo CEPETUSP. "Esqueci minha senha" mostra um aviso por enquanto. As contas de teste aparecem **só num quadro discreto** nesta página.
 
-### 6.7 Área do PET
-- **Lista de pedidos** do próprio PET: título, tipo, seção, data, **status** (badge colorido) e o botão "Novo pedido". Também um link "Ver minha página".
-- **Novo pedido** (formulário):
-  - *Tipo:* Alterar texto · Adicionar/remover membro · Adicionar projeto/atividade · Trocar/adicionar fotos · Atualizar redes/contato · Outro.
-  - *Seção da página:* Topo/Logo · Foto do grupo · Membros · Sobre nós · Projetos · Redes sociais · Outra.
-  - *Título* (obrigatório, até 120 caracteres).
-  - *Descrição* (obrigatória): o que mudar, com o texto novo completo.
-  - *Anexos:* até 5 arquivos (imagens ou PDF, até 5 MB cada).
-  - Validação no cliente. Depois de enviar, ir para o detalhe com uma mensagem de sucesso.
-- **Detalhe do pedido:** todos os campos, os anexos (miniaturas/links), a linha do tempo de status e a resposta do CEPETUSP.
+### 6.7 Área do PET (`/area-do-pet`): "Editar minha página"
+- Topo com o nome do PET, o link "Ver a página" (nova aba) e "Última alteração em … por …".
+- Campos estruturais (nome, unidade, campus, área e ano) **só para leitura**, com a nota "para alterar, fale com o CEPETUSP".
+- Formulário dividido nas seções da página pública, cada uma num **bloco recolhível com o próprio botão Salvar**:
+  1. **Identidade:** logo (upload), cor de destaque (input color, com "usar as cores padrão") e foto de capa (upload).
+  2. **Foto do grupo** (upload).
+  3. **Sobre nós:** parágrafos (adicionar, remover, reordenar).
+  4. **Tutor(a):** nome, foto e descrição curta.
+  5. **Membros:** nome, curso/frente e foto opcional, com adicionar, remover e reordenar por botões ↑↓ (sem arrastar).
+  6. **Atividades e projetos:** título, descrição, imagem e link.
+  7. **Galeria:** fotos com legenda.
+  8. **Contato e redes:** e-mail, endereço, Instagram, Linktree, LinkedIn, YouTube, Telegram e site.
+- **LGPD:** ao salvar foto do grupo, tutor, membros ou galeria, é obrigatório marcar *"Confirmo que as pessoas identificadas autorizaram a publicação de nome e imagem."*
+- Feedback: "Salvo! Já está no ar." e mensagens de erro em português.
+- Uploads: a imagem é reduzida no navegador antes de enviar (canvas, lado maior até 1600 px; 480 px para fotos de pessoas; WebP ou JPEG com qualidade 0,85). Aceita JPEG, PNG e WebP de até 5 MB.
 
-### 6.8 Painel do CEPETUSP
-- Tabela ou lista de **todos** os pedidos, com filtros por **status** e por **PET**, ordenada pelos mais recentes. Mostre contadores por status no topo.
-- **Detalhe:** os mesmos dados, mais as ações **mudar status** (pendente → em andamento → concluído / recusado) e **escrever uma resposta** para o PET.
-- Status e cores: `pendente` (amarelo), `em_andamento` (azul), `concluido` (verde), `recusado` (cinza/vermelho).
+### 6.8 Painel do CEPETUSP (`/painel`)
+- Lista dos 22 PETs: logo, nome, última alteração (data e autor) e indicadores de completude (capa, membros, projetos), com contadores no topo. Atalho para as notícias.
+- **Editar** abre o mesmo editor da Área do PET, para qualquer PET, com um bloco extra de **dados estruturais** liberado (nome, unidade, campus, área, ano, site externo e "ativo").
+- **Histórico** lista as versões (a mais recente marcada como "atual") com o botão **"Restaurar esta versão"** e confirmação na própria página.
+
+### 6.9 Notícias (`/noticias-admin`, perfis `secretaria` e `cepet`)
+- Lista com o status Publicada/Rascunho e os botões nova, editar e excluir (com confirmação na própria página).
+- Formulário: título, resumo, texto (simples, com parágrafos separados por linha em branco), imagem (upload com redução), link externo opcional, data e "publicada".
+- A secretaria **não** edita páginas de PETs.
 
 ## 7. Dados
 
-### 7.1 Conteúdo dos PETs (no repositório)
-O conteúdo público fica em **arquivos JS** versionados no git. Assim, cada alteração passa por commit e PR, com histórico e revisão.
+### 7.1 Entidades e permissões (independentes de tecnologia)
+
+| Entidade | Campos principais | Leitura | Escrita |
+|---|---|---|---|
+| **Conta** | id, nome, e-mail, perfil (`pet` · `cepet` · `secretaria`), pet_slug (só perfil `pet`) | a própria conta; CEPETUSP vê todas | só o CEPETUSP cria e desativa contas |
+| **PET** | slug, nome, unidade, campus, area, anoCriacao, siteExterno, ativo (*estruturais*); logo, corDestaque, fotoCapa, fotoGrupo, sobre[], tutor{}, membros[], projetos[], galeria[], redes{}, email, endereco (*conteúdo*); atualizadoEm, atualizadoPor | público | conteúdo: o próprio PET ou o CEPETUSP; estruturais: só o CEPETUSP |
+| **Versão de PET** | id, pet_slug, dados (cópia completa), editadoPor, editadoEm, descricao | o próprio PET e o CEPETUSP | automática a cada alteração; só o CEPETUSP restaura |
+| **Notícia** | id, titulo, resumo, texto, imagem, linkExterno, dataPublicacao, publicada (bool), autor | público (só as publicadas) | secretaria e CEPETUSP |
+| **Imagem** | caminho `<dono>/<arquivo>`, tipo, tamanho | público | só na pasta do próprio PET (`pets/<slug>/`) ou de notícias (`noticias/`, secretaria) |
+
+Limites: imagens de até 5 MB (jpeg, png, webp); até 10 parágrafos no "sobre", 60 membros, 30 projetos e 30 fotos na galeria. Textos sempre como texto puro (sem HTML ou Markdown renderizado). Links só com `https://`. O detalhamento para a escolha do banco está em [`docs/modelo-de-dados.md`](modelo-de-dados.md).
+
+### 7.2 Conteúdo inicial (no repositório)
+
+`src/content/pets/<slug>.js` e `src/content/noticias.js` são o **conteúdo inicial**: o modo local parte deles e, no futuro, eles servem para popular o banco. `src/content/pets/index.js` exporta a lista (`listaPets`) e as 6 áreas. As imagens ficam em `public/pets/<slug>/` e `public/fotos/`.
 
 ```js
-// src/content/pets/computacao.js
+// src/content/pets/<slug>.js
 export default {
-  slug: 'computacao',              // usado na URL
-  nome: 'PET Computação',
-  unidade: 'ICMC',                 // instituto/faculdade
-  campus: 'São Carlos',
-  area: 'Ciências Exatas e da Terra', // uma das 6 áreas do filtro
-  anoCriacao: null,                // número ou null
-  logo: '/pets/computacao/logo.png',
-  corDestaque: null,               // ex.: '#0B8F3A'; null = cores padrão
-  fotoGrupo: null,                 // '/pets/computacao/grupo.jpg'
-  sobre: ['Parágrafo 1', 'Parágrafo 2'],
-  tutor: { nome: '', foto: null, descricao: '' },
-  membros: [{ nome: '', curso: '', foto: null }],
-  projetos: [{ titulo: '', descricao: '', imagem: null, link: null }],
-  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, site: null },
-  email: null,
-  siteExterno: null,               // se preenchido, o card abre este link
+  slug: 'computacao', nome: 'PET Computação', unidade: 'ICMC', campus: 'São Carlos',
+  area: 'Ciências Exatas e da Terra', anoCriacao: 1995, siteExterno: null,
+  logo: '/pets/computacao/logo.png', corDestaque: '#127E3F',
+  fotoCapa: '/pets/computacao/capa.jpg', fotoGrupo: '/pets/computacao/grupo.png',
+  sobre: ['Parágrafo 1'],
+  tutor: { nome, foto, descricao },          // ou null
+  membros: [{ nome, curso, foto }],
+  projetos: [{ titulo, descricao, imagem, link }],
+  galeria: [{ src, legenda }],
+  redes: { instagram, linktree, linkedin, youtube, telegram, site },
+  email: null, endereco: null,
 }
 ```
 
-`src/content/pets/index.js` importa todos e exporta a lista (`listaPets`) e o `buscarPet(slug)`. Imagens ficam em `public/pets/<slug>/`.
-
-**Os 22 PETs** (lidos dos logos no Figma; o que está com ⚠️ precisa ser confirmado com a frente):
+**Os 22 PETs** (o que está com ⚠️ precisa ser confirmado com a frente):
 
 | slug | nome | unidade | campus | área | obs. |
 |---|---|---|---|---|---|
@@ -202,13 +213,13 @@ export default {
 | `eefe` | PET EEFE | EEFE | São Paulo | Ciências da Saúde | ⚠️ |
 | `enfermagem-eerp` | PET Enfermagem | EERP | Ribeirão Preto | Ciências da Saúde | |
 | `engenharia-de-alimentos` | PET Engenharia de Alimentos | FZEA | Pirassununga | Engenharia | ⚠️ |
-| `pet-mariposa` | ⚠️ (logo de mariposa, sem nome) | ? | ? | ? | descobrir qual PET é |
+| `filosofia` | PET Filosofia | FFLCH | São Paulo | Ciências Humanas | logo do pássaro rosa; site https://petfilosofia.fflch.usp.br |
 | `fonoaudiologia` | PET Fonoaudiologia | FOB | Bauru | Ciências da Saúde | |
 | `gaea` | PET Gaea | ESALQ | Piracicaba | Ciências Agrárias | ⚠️ |
 | `historia` | PET História | FFLCH | São Paulo | Ciências Humanas | |
 | `mecanica` | PET Mecânica | EESC | São Carlos | Engenharia | ⚠️ unidade |
 | `mecatronica` | PET Mecatrônica | EESC | São Carlos | Engenharia | ⚠️ unidade |
-| `pet-arvore` | ⚠️ (logo de árvore, nome ilegível) | ? | ? | ? | descobrir qual PET é |
+| `pet-arvore` | PET Medicina – Cursinho Popular | FMRP | Ribeirão Preto | Ciências da Saúde | ⚠️ logo do Cursinho Popular do PET-Medicina, gerido pelo PET FMRP: pode ser duplicado do `fmrp` |
 | `fmrp` | PET FMRP (Medicina) | FMRP | Ribeirão Preto | Ciências da Saúde | |
 | `quimica-rp` | PET Química USP RP | FFCLRP | Ribeirão Preto | Ciências Exatas e da Terra | |
 | `iqsc` | PET IQSC (Química) | IQSC | São Carlos | Ciências Exatas e da Terra | |
@@ -216,143 +227,100 @@ export default {
 | `direito-fdusp` | PET Direito | FDUSP | São Paulo | Ciências Sociais Aplicadas | |
 | `zootecnia-fzea` | PET Zootecnia | FZEA | Pirassununga | Ciências Agrárias | ⚠️ |
 
-Os logos em `public/pets/<slug>/logo.png` são **recortes provisórios em baixa resolução** das capturas do Figma. Troque pelos originais quando houver acesso (MCP do Figma: `download_assets`) ou quando os PETs enviarem.
+O **PET Computação** tem conteúdo real (texto, 16 membros, 8 atividades, redes e galeria), tirado do site oficial do grupo, como vitrine. Os outros 21 têm só os dados estruturais, um parágrafo factual e a capa.
 
-Para a apresentação, preencha **3 PETs com conteúdo completo de exemplo** (sugestão: `computacao`, `iqsc`, `mecanica`) e os outros com um `sobre` curto genérico. Os textos de exemplo devem ser marcados claramente como provisórios; não invente fatos (como ano de criação ou nomes de tutores) que pareçam reais.
+**Capa de cada PET** (o PET pode trocar pelo editor):
 
-### 7.2 Notícias e Home
-`src/content/noticias.js` (lista de `{ titulo, data: 'AAAA-MM-DD', resumo, imagem, link }`) e `src/content/home.js` (slides e o texto da história curta). Use itens de exemplo marcados com `TODO`.
+| PET (slug) | capa (`public/fotos/`) |
+|---|---|
+| adm | `fea` |
+| biotecnologia-agricola, ecologia, gaea | `campus-piracicaba` |
+| ciencias-sociais, historia, filosofia | `fflch` |
+| computacao | foto própria (`public/pets/computacao/capa.jpg`) |
+| direito-fdusp | `fd-largo-sao-francisco` |
+| direitos-fdrp, enfermagem-eerp, fmrp, pet-arvore, quimica-rp | `campus-ribeirao` |
+| eefe | `campus-butanta` |
+| engenharia-de-alimentos, zootecnia-fzea | `campus-pirassununga` |
+| fonoaudiologia | `campus-bauru` |
+| iqsc, mecanica, mecatronica | `campus-sao-carlos` |
+| si-each | `each` |
 
-### 7.3 Login e pedidos (Supabase)
+### 7.3 Fotos e créditos
 
-**Perfis:** `pet` (uma conta por PET, ligada a um `pet_slug`) e `cepet` (membros do CEPETUSP). O cadastro público fica **desligado**; as contas são criadas pelo painel do Supabase (*Authentication → Add user*) e depois ganham uma linha em `profiles`.
+- `npm run fotos` (`scripts/baixar-fotos.mjs`, Node 18+, sem dependências) baixa:
+  1. as imagens do **PET Computação** do site oficial do grupo (logo, banner do grupo, capa, galeria, fotos dos membros e ilustrações das frentes). Os nomes com hash mudam quando o site do grupo é republicado: se der 404, pegue o endereço atual em https://pet.icmc.usp.br;
+  2. as fotos dos **campi e unidades** pela API do **Wikimedia Commons**, aceitando só imagens horizontais, com ≥ 1600 px e licença CC0, domínio público, CC BY ou CC BY-SA, salvas em 1920 px em `public/fotos/<chave>.jpg`. As escolhas conferidas à mão ficam em `ESCOLHAS_MANUAIS` e têm prioridade sobre a busca. **Abra cada foto baixada e confira se ela mostra mesmo o lugar.**
+- `npm run fotos:otimizar` (`scripts/otimizar-fotos.py`, Python 3 + Pillow + Chrome) reduz as fotos do PET Computação (até 1600 px; membros 480 px), recomprime as dos campi e converte as ilustrações das frentes (SVGs com fotos de vários MB embutidas) em WebP.
+- `public/fotos/creditos.json` (`{ arquivo, titulo, autor, licenca, urlLicenca, urlOrigem }`) alimenta a página **`/creditos`** e o crédito pequeno sobre cada capa e slide ("Foto: Autor / Wikimedia Commons, CC BY-SA 4.0"). Toda foto de terceiros precisa de licença compatível e de crédito.
 
-Crie `supabase/schema.sql` com o conteúdo abaixo, revise e mantenha atualizado:
-
-```sql
-create table public.profiles (
-  id uuid primary key references auth.users on delete cascade,
-  nome text not null,
-  perfil text not null check (perfil in ('pet','cepet')),
-  pet_slug text,                        -- obrigatório quando perfil = 'pet'
-  created_at timestamptz default now(),
-  check (perfil = 'cepet' or pet_slug is not null)
-);
-
-create table public.solicitacoes (
-  id uuid primary key default gen_random_uuid(),
-  pet_slug text not null,
-  autor_id uuid not null references auth.users,
-  tipo text not null,
-  secao text not null,
-  titulo text not null check (char_length(titulo) <= 120),
-  descricao text not null,
-  anexos jsonb not null default '[]',   -- [{ path, nome, tipo, tamanho }]
-  status text not null default 'pendente'
-    check (status in ('pendente','em_andamento','concluido','recusado')),
-  resposta text,
-  historico jsonb not null default '[]', -- [{ status, em, por }]
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
--- funções auxiliares para as regras de acesso
-create function public.meu_perfil() returns text language sql stable security definer
-  set search_path = public as $$ select perfil from profiles where id = auth.uid() $$;
-create function public.meu_pet() returns text language sql stable security definer
-  set search_path = public as $$ select pet_slug from profiles where id = auth.uid() $$;
-
-alter table public.profiles enable row level security;
-alter table public.solicitacoes enable row level security;
-
-create policy "ver o próprio perfil" on profiles for select
-  using (id = auth.uid() or meu_perfil() = 'cepet');
-
-create policy "PET vê os seus; CEPET vê todos" on solicitacoes for select
-  using (pet_slug = meu_pet() or meu_perfil() = 'cepet');
-create policy "PET cria pedido do próprio PET" on solicitacoes for insert
-  with check (meu_perfil() = 'pet' and pet_slug = meu_pet()
-              and autor_id = auth.uid() and status = 'pendente');
-create policy "só CEPET atualiza" on solicitacoes for update
-  using (meu_perfil() = 'cepet');
-
--- Storage: bucket privado "anexos", caminho "<pet_slug>/<id_pedido>/<arquivo>"
-insert into storage.buckets (id, name, public) values ('anexos','anexos', false);
-create policy "PET envia anexos do próprio PET" on storage.objects for insert
-  with check (bucket_id = 'anexos' and (storage.foldername(name))[1] = meu_pet());
-create policy "ler anexos" on storage.objects for select
-  using (bucket_id = 'anexos' and ((storage.foldername(name))[1] = meu_pet() or meu_perfil() = 'cepet'));
-```
-
-Anexos são exibidos por *signed URLs* (`createSignedUrl`, 1 h).
-
-### 7.4 Camada de serviço e modo demonstração
-Toda a comunicação passa por `src/services/`, e as páginas **nunca** chamam o Supabase diretamente:
+### 7.4 Camada de serviço e modo local
 
 ```
 src/services/
-  supabaseClient.js   // cria o client só se houver VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY
-  auth.js             // entrar(email, senha), sair(), usuarioAtual(), aoMudarSessao(cb)
-  solicitacoes.js     // listar(filtros), buscar(id), criar(dados, arquivos), atualizarStatus(id, status, resposta)
-  demo/               // mesma interface, implementada com localStorage
+  auth.js       entrar, sair, usuarioAtual, aoMudarSessao, recuperarSenha (+ CONTAS_TESTE)
+  pets.js       listarPets(), buscarPet(slug), atualizarPet(slug, campos, descricao),
+                enviarImagem(dono, arquivo), listarVersoes(slug), restaurarVersao(slug, idVersao)
+  noticias.js   listarNoticias({ incluirRascunhos }), buscarNoticia(id), salvarNoticia(dados), excluirNoticia(id)
+  imagens.js    enviarImagem(dono, arquivo, ladoMaximo) → caminho; urlImagem(caminho) → src do <img>
+  creditos.js   listarCreditos(), buscarCredito(caminho)
+  local/        implementação de tudo acima com localStorage, incluindo permissoes.js e validacao.js
 ```
 
-- O **modo demo** fica ativo quando as variáveis de ambiente não existem. Nesse modo, aparece uma faixa discreta "Modo demonstração" no topo da Área do PET e do Painel.
-- Contas de teste no modo demo: `computacao@demo.pet` / `demo1234` (perfil `pet`, slug `computacao`), `iqsc@demo.pet` / `demo1234` (perfil `pet`) e `cepet@demo.pet` / `demo1234` (perfil `cepet`). Anexos no modo demo ficam como *data URL*, só para imagens pequenas, ou só com o nome do arquivo.
-- Deixe 3 ou 4 pedidos de exemplo pré-carregados no modo demo, em status diferentes, para o painel não aparecer vazio na apresentação.
-- Um `AuthContext` (React Context) expõe `{ usuario, perfil, petSlug, carregando, entrar, sair }`.
+- As páginas **só** falam com `src/services/`. Cada função delega para `services/local/` e tem um comentário dizendo o que o backend futuro precisa fazer. **Quando o banco for escolhido, só os arquivos de `services/` mudam.**
+- **Toda regra de permissão e validação também é checada no modo local**, para que o comportamento na apresentação seja o mesmo do sistema real.
+- No modo local, os PETs editados e o histórico ficam no `localStorage` (até 30 versões por PET, incluindo a versão inicial). Cada imagem enviada fica numa chave própria, como data URL, e os dados guardam só a referência `local-imagem:<id>`; se o `localStorage` encher, aparece um aviso em português.
+- Contas de teste (senha `demo1234`): `computacao@demo.pet` (PET Computação), `filosofia@demo.pet` (PET Filosofia), `cepet@demo.pet` (CEPETUSP) e `secretaria@demo.pet` (secretaria). Elas aparecem só no quadro discreto de `/entrar`; **não há faixa nem selo de demonstração no site público**.
+- O `AuthContext` (React Context) expõe `{ usuario, perfil, petSlug, carregando, entrar, sair }`.
 
-`.env.example` já está no repositório. **Nunca** commitar `.env`.
-
-## 8. Estrutura de pastas sugerida
+## 8. Estrutura de pastas
 
 ```
 src/
-  main.jsx, App.jsx          // rotas
-  styles/tokens.css, global.css
-  components/                // Header, Footer, Breadcrumb, SectionTitle, Carousel, PetCard, StatusBadge, RotaProtegida, icons/
-  pages/                     // Home, TodosPets, Sobre, Institucional, PetPage, NotFound,
-                             // Entrar, area/(MeusPedidos, NovoPedido, DetalhePedido), painel/(Painel, DetalhePainel)
-  content/                   // home.js, noticias.js, sobre.js, institucional.js, pets/*.js
-  services/                  // ver 7.4
+  main.jsx, App.jsx            rotas
+  styles/                      tokens.css, global.css
+  components/                  Header, Footer, Breadcrumb, SectionTitle, Carousel, CarrosselRolagem, PetCard,
+                               Avatar, EstadoVazio, CreditoFoto, NoticiaCard, CabecalhoArea, RotaProtegida, icons/,
+                               Editor/ (EditorPet, Blocos, Bloco, ListaEditavel, CampoImagem)
+  pages/                       Home, TodosPets, PetPage, Sobre, Institucional, Noticias, Creditos, Entrar, NotFound,
+                               area/EditarPagina, painel/(Painel, EditarPetPainel, Historico),
+                               noticiasAdmin/(NoticiasAdmin, EditarNoticia)
+  content/                     conteúdo inicial: home.js, noticias.js, sobre.js, institucional.js, pets/*.js
+  services/                    ver §7.4
   context/AuthContext.jsx
-public/brand/, public/pets/<slug>/
-supabase/schema.sql
-docs/SPEC.md, docs/figma-refs/
+  hooks/                       useDados (carregando/erro), useTituloPagina
+  utils/                       datas, urlPublica, areaDoPerfil, redimensionarImagem
+public/brand/, public/pets/<slug>/, public/fotos/ (+ creditos.json)
+scripts/                       baixar-fotos.mjs, otimizar-fotos.py
+docs/                          SPEC.md, modelo-de-dados.md, figma-refs/
 ```
 
-## 9. Ordem de execução sugerida
+## 9. Logos
 
-1. Limpar o template do Vite, instalar as fontes, criar os tokens, o `global.css`, o Header, o Footer e as rotas com páginas vazias.
-2. Conteúdo: os 22 arquivos de PET + `index.js`, com dados da tabela 7.1.
-3. Todos os PETs (grade, filtros, ordenação).
-4. Template da página do PET (+ carrossel).
-5. Home, Sobre, Institucional e 404.
-6. Serviços (modo demo primeiro), AuthContext, Login e rotas protegidas.
-7. Área do PET (lista, novo pedido, detalhe).
-8. Painel do CEPETUSP.
-9. Supabase: `schema.sql` e o adaptador real (testar quando houver projeto criado).
-10. Responsivo, acessibilidade básica (foco visível, `alt`, contraste, navegação por teclado), título da aba por página e o README.
-11. Deploy.
+1. **Para a apresentação:** usar as cópias do Figma ("Copy as PNG", ≈ 150 px), bem melhores que os recortes atuais (≈ 40–130 px). Renomeie cada uma para `public/pets/<slug>/logo.png`. O CSS nunca amplia o logo além do tamanho natural.
+2. **Para melhorar:** pelo Figma MCP (`download_assets`, nó `19:735` do arquivo `OhCHD6n1okEsLYDuLin22l`, campo `rawImages`) ou pelo painel **Export → 4x** do Figma, com a imagem original selecionada.
+3. **PET Computação:** logo do site oficial (1268 px), baixado por `npm run fotos`.
+4. **Definitivo:** cada PET envia o próprio logo em boa resolução pelo editor.
 
 ## 10. Critérios de aceite
 
-- `npm run build` sem erros e `npm run lint` sem erros.
-- Todas as rotas da seção 5 funcionam, inclusive ao recarregar a página (rewrite de SPA).
-- Os filtros e a ordenação da galeria funcionam combinados, e as 22 páginas de PET abrem.
-- No modo demo: entrar como PET → criar um pedido com anexo → sair → entrar como CEPET → ver o pedido → mudar o status e responder → entrar de novo como PET → ver a resposta.
-- Um PET **não** consegue ver pedidos de outro PET, nem acessar `/painel`.
-- O layout funciona em 375 px, 768 px e 1280 px.
-- Visual fiel às capturas em `docs/figma-refs/` (cores, fontes, cabeçalho, rodapé, títulos com fundo amarelo, cards).
-- Selo "Beta" e faixa de versão de demonstração visíveis e desligáveis por `MODO_BETA`. Nenhum dado pessoal real no conteúdo de exemplo.
+- `npm run build` e `npm run lint` sem erros.
+- Todas as rotas de §5 funcionam, inclusive ao recarregar a página (rewrite de SPA).
+- Os filtros e a ordenação da galeria funcionam combinados; os 22 PETs aparecem, e o card do PET Filosofia tem o nome certo.
+- Nenhuma ocorrência visível de "Beta" ou "demonstração" no site público.
+- Modo local: entrar como `computacao@demo.pet` → editar o "Sobre nós" e trocar a foto de um membro → salvar → a página pública mostra a mudança na hora. Entrar como `filosofia@demo.pet` → não consegue editar outro PET (nem pela URL). Entrar como `cepet@demo.pet` → vê os 22 PETs, edita qualquer um e restaura uma versão anterior. Entrar como `secretaria@demo.pet` → cria uma notícia com foto, que aparece na Home, e não consegue abrir o editor de nenhum PET. Um PET não consegue abrir `/noticias-admin`.
+- Nenhuma dependência ou código de provedor de banco; `docs/modelo-de-dados.md` pronto para a reunião com o professor de BD.
+- Todas as fotos do Commons têm crédito em `/creditos`; nenhuma foto sem licença compatível. Nenhum dado pessoal inventado.
+- Home, página do PET Computação e página de um PET "vazio" ficam bonitas em 375 px e 1280 px (e o layout funciona em 768 px).
+- Visual fiel às capturas em `docs/figma-refs/`.
 
 ## 11. Pendências e perguntas em aberto
 
-- Acesso de **editor** no Figma para obter os assets originais (logos, logo PET USP) e os valores exatos.
-- Identificar os PETs dos logos de **mariposa** e de **árvore** e confirmar os itens com ⚠️ na tabela.
-- **V1 ou V2** da página do PET? O template deve seguir a ordem de seções e permitir uma cor de destaque por PET.
-- Conteúdo oficial: "Sobre o programa", "Institucional", história curta da Home e notícias.
-- Repositório definitivo (GitHub do PET?) e hospedagem/domínio final.
-- Criar o projeto no Supabase e as contas de cada PET (e definir quem do CEPETUSP terá perfil `cepet`).
-- LGPD: ter o consentimento dos membros para publicar foto e nome.
-
+- **Banco de dados e login reais:** decidir com o professor de BD do ICMC (opções em `docs/modelo-de-dados.md`), incluindo Senha Única USP, backups e limite de armazenamento.
+- **Logos:** salvar os PNGs copiados do Figma em `public/pets/<slug>/logo.png`. A conta conectada ao MCP do Figma tem só assento de visualização e não consegue baixar os originais: é preciso dar acesso de editor a ela ou exportar em 4x manualmente.
+- `pet-arvore` (Cursinho Popular do PET-Medicina) pode ser duplicado do `fmrp`: discutir com a frente.
+- Confirmar os itens com ⚠️ na tabela de PETs.
+- PET Computação: confirmar o(a) tutor(a) atual e os membros novos (`TODO` em `computacao.js`).
+- Conteúdo oficial: "Sobre o programa", "Institucional", história curta da Home e as primeiras notícias reais (secretaria).
+- Fotos: Bauru usa o prédio do Centrinho (HRAC), no mesmo campus da FOB, porque não há foto livre boa da FOB; a FFLCH usa uma foto interna do Prédio das Sociais.
+- LGPD: registrar no backend quem confirmou a autorização de nome e imagem, e quando.
+- Hospedagem e domínio usp.br pela Reitoria; criar as contas dos 22 PETs, do CEPETUSP e da secretaria.
