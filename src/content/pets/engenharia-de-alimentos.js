@@ -1,5 +1,6 @@
 // TODO: confirmar os dados
-// TODO: conteúdo provisório; pedir os dados reais ao PET
+// Página ainda não preenchida pelo grupo: só os dados estruturais e um parágrafo factual.
+// O próprio PET completa o resto pela Área dos PETs (SPEC-v2 §4). Não invente nomes, fotos ou tutores.
 export default {
   slug: 'engenharia-de-alimentos',
   nome: 'PET Engenharia de Alimentos',
@@ -7,17 +8,17 @@ export default {
   campus: 'Pirassununga',
   area: 'Engenharia',
   anoCriacao: null,
+  siteExterno: null,
   logo: '/pets/engenharia-de-alimentos/logo.png',
   corDestaque: null,
+  fotoCapa: null,
   fotoGrupo: null,
-  sobre: [
-    'O PET Engenharia de Alimentos é um dos grupos do Programa de Educação Tutorial da FZEA, no campus de Pirassununga, atuando no tripé ensino, pesquisa e extensão.',
-    'Texto provisório: o conteúdo oficial desta página ainda será enviado pelo grupo.',
-  ],
+  sobre: ['Grupo PET da FZEA-USP, em Pirassununga, na área de Engenharia.'],
   tutor: null,
   membros: [],
   projetos: [],
-  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, site: null },
+  galeria: [],
+  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, telegram: null, site: null },
   email: null,
-  siteExterno: null,
+  endereco: null,
 }

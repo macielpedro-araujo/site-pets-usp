@@ -10,6 +10,7 @@ import ecologia from './ecologia.js'
 import eefe from './eefe.js'
 import enfermagemEerp from './enfermagem-eerp.js'
 import engenhariaDeAlimentos from './engenharia-de-alimentos.js'
+import filosofia from './filosofia.js'
 import fmrp from './fmrp.js'
 import fonoaudiologia from './fonoaudiologia.js'
 import gaea from './gaea.js'
@@ -18,7 +19,6 @@ import iqsc from './iqsc.js'
 import mecanica from './mecanica.js'
 import mecatronica from './mecatronica.js'
 import petArvore from './pet-arvore.js'
-import petMariposa from './pet-mariposa.js'
 import quimicaRp from './quimica-rp.js'
 import siEach from './si-each.js'
 import zootecniaFzea from './zootecnia-fzea.js'
@@ -34,6 +34,7 @@ export const listaPets = [
   eefe,
   enfermagemEerp,
   engenhariaDeAlimentos,
+  filosofia,
   fmrp,
   fonoaudiologia,
   gaea,
@@ -42,7 +43,6 @@ export const listaPets = [
   mecanica,
   mecatronica,
   petArvore,
-  petMariposa,
   quimicaRp,
   siEach,
   zootecniaFzea,

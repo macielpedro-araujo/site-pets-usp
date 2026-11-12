@@ -1,5 +1,6 @@
 // TODO: confirmar a área (não há "Biológicas" no filtro)
-// TODO: conteúdo provisório; pedir os dados reais ao PET
+// Página ainda não preenchida pelo grupo: só os dados estruturais e um parágrafo factual.
+// O próprio PET completa o resto pela Área dos PETs (SPEC-v2 §4). Não invente nomes, fotos ou tutores.
 export default {
   slug: 'ecologia',
   nome: 'PET Ecologia',
@@ -7,17 +8,17 @@ export default {
   campus: 'Piracicaba',
   area: 'Ciências Agrárias',
   anoCriacao: null,
+  siteExterno: null,
   logo: '/pets/ecologia/logo.png',
   corDestaque: null,
+  fotoCapa: null,
   fotoGrupo: null,
-  sobre: [
-    'O PET Ecologia é um dos grupos do Programa de Educação Tutorial da ESALQ, no campus de Piracicaba, atuando no tripé ensino, pesquisa e extensão.',
-    'Texto provisório: o conteúdo oficial desta página ainda será enviado pelo grupo.',
-  ],
+  sobre: ['Grupo PET da ESALQ-USP, em Piracicaba, na área de Ciências Agrárias.'],
   tutor: null,
   membros: [],
   projetos: [],
-  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, site: null },
+  galeria: [],
+  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, telegram: null, site: null },
   email: null,
-  siteExterno: null,
+  endereco: null,
 }

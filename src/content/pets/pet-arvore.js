@@ -1,23 +1,24 @@
-// TODO: descobrir qual PET é (logo de árvore, nome ilegível)
-// TODO: conteúdo provisório; pedir os dados reais ao PET
+// TODO: confirmar com a frente se é duplicado do PET FMRP (logo do Cursinho Popular do PET-Medicina, gerido pelo PET FMRP)
+// Página ainda não preenchida pelo grupo: só os dados estruturais e um parágrafo factual.
+// O próprio PET completa o resto pela Área dos PETs (SPEC-v2 §4). Não invente nomes, fotos ou tutores.
 export default {
   slug: 'pet-arvore',
-  nome: 'PET (nome a confirmar)',
-  unidade: null,
-  campus: null,
-  area: null,
+  nome: 'PET Medicina – Cursinho Popular',
+  unidade: 'FMRP',
+  campus: 'Ribeirão Preto',
+  area: 'Ciências da Saúde',
   anoCriacao: null,
+  siteExterno: null,
   logo: '/pets/pet-arvore/logo.png',
   corDestaque: null,
+  fotoCapa: null,
   fotoGrupo: null,
-  sobre: [
-    'O PET (nome a confirmar) é um dos grupos do Programa de Educação Tutorial, atuando no tripé ensino, pesquisa e extensão.',
-    'Texto provisório: o conteúdo oficial desta página ainda será enviado pelo grupo.',
-  ],
+  sobre: ['Cursinho Popular do PET Medicina, gerido pelo grupo PET da FMRP-USP, em Ribeirão Preto, na área de Ciências da Saúde.'],
   tutor: null,
   membros: [],
   projetos: [],
-  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, site: null },
+  galeria: [],
+  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, telegram: null, site: null },
   email: null,
-  siteExterno: null,
+  endereco: null,
 }

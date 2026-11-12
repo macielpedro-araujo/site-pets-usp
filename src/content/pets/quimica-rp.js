@@ -1,4 +1,5 @@
-// TODO: conteúdo provisório; pedir os dados reais ao PET
+// Página ainda não preenchida pelo grupo: só os dados estruturais e um parágrafo factual.
+// O próprio PET completa o resto pela Área dos PETs (SPEC-v2 §4). Não invente nomes, fotos ou tutores.
 export default {
   slug: 'quimica-rp',
   nome: 'PET Química USP RP',
@@ -6,17 +7,17 @@ export default {
   campus: 'Ribeirão Preto',
   area: 'Ciências Exatas e da Terra',
   anoCriacao: null,
+  siteExterno: null,
   logo: '/pets/quimica-rp/logo.png',
   corDestaque: null,
+  fotoCapa: null,
   fotoGrupo: null,
-  sobre: [
-    'O PET Química USP RP é um dos grupos do Programa de Educação Tutorial da FFCLRP, no campus de Ribeirão Preto, atuando no tripé ensino, pesquisa e extensão.',
-    'Texto provisório: o conteúdo oficial desta página ainda será enviado pelo grupo.',
-  ],
+  sobre: ['Grupo PET da FFCLRP-USP, em Ribeirão Preto, na área de Ciências Exatas e da Terra.'],
   tutor: null,
   membros: [],
   projetos: [],
-  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, site: null },
+  galeria: [],
+  redes: { instagram: null, linktree: null, linkedin: null, youtube: null, telegram: null, site: null },
   email: null,
-  siteExterno: null,
+  endereco: null,
 }

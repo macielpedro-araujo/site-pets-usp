@@ -173,3 +173,34 @@ export function IconeLinkExterno(props) {
     </Svg>
   )
 }
+
+// Avião de papel (Telegram)
+export function IconeTelegram(props) {
+  return (
+    <Svg {...props}>
+      <path d="M21 4L3 11l6 2 2 6 3-4 5 4z" />
+      <path d="M9 13l12-9" />
+    </Svg>
+  )
+}
+
+// Marcador de mapa (endereço)
+export function IconeLocal(props) {
+  return (
+    <Svg {...props}>
+      <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </Svg>
+  )
+}
+
+// Moldura de foto (estados vazios de imagem)
+export function IconeImagem(props) {
+  return (
+    <Svg {...props}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="9" cy="10" r="2" />
+      <path d="M21 16l-5-5-8 9" />
+    </Svg>
+  )
+}
