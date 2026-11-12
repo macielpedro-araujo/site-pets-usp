@@ -316,7 +316,7 @@ docs/                          SPEC.md, modelo-de-dados.md, figma-refs/
 ## 11. Pendências e perguntas em aberto
 
 - **Banco de dados e login reais:** decidir com o professor de BD do ICMC (opções em `docs/modelo-de-dados.md`), incluindo Senha Única USP, backups e limite de armazenamento.
-- **Logos:** salvar os PNGs copiados do Figma em `public/pets/<slug>/logo.png`. A conta conectada ao MCP do Figma tem só assento de visualização e não consegue baixar os originais: é preciso dar acesso de editor a ela ou exportar em 4x manualmente.
+- **Logos:** 19 PETs já usam as cópias do Figma; faltam História, SI e Zootecnia (ainda com os recortes antigos). O definitivo é cada PET enviar o próprio logo em boa resolução pelo editor.
 - `pet-arvore` (Cursinho Popular do PET-Medicina) pode ser duplicado do `fmrp`: discutir com a frente.
 - Confirmar os itens com ⚠️ na tabela de PETs.
 - PET Computação: confirmar o(a) tutor(a) atual e os membros novos (`TODO` em `computacao.js`).
