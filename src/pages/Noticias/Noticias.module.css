@@ -1,0 +1,66 @@
+.grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vazio {
+  color: #888;
+  text-align: center;
+}
+
+.artigo {
+  max-width: 760px;
+  margin: 24px auto 0;
+}
+
+.artigo h1 {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.data {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-teal);
+}
+
+.resumo {
+  font-size: 1.15rem;
+  color: #444;
+}
+
+.imagemCaixa {
+  position: relative;
+  margin: 24px 0;
+}
+
+.imagem {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.paragrafo {
+  white-space: pre-line; /* mantém as quebras de linha simples do texto */
+}
+
+.voltar {
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,78 @@
+.pagina {
+  max-width: 860px;
+}
+
+.voltar {
+  margin: 20px 0 16px;
+  font-size: 0.9rem;
+}
+
+.pagina h1 {
+  font-size: 1.8rem;
+}
+
+.intro {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.vazio {
+  padding: 20px;
+  border: 1px dashed #cfcfcf;
+  border-radius: var(--radius);
+  color: #888;
+  text-align: center;
+}
+
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.versao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.versao + .versao {
+  border-top: 1px solid var(--color-border);
+}
+
+.versao p {
+  margin: 0;
+}
+
+.descricao {
+  font-weight: 700;
+  color: #333;
+}
+
+.atual {
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #e6f4e8;
+  color: var(--color-success);
+  font-size: 0.75rem;
+}
+
+.quando {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.confirmar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}

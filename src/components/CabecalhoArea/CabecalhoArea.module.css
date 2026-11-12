@@ -42,3 +42,32 @@
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
+
+.direita {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.atalhos {
+  display: flex;
+  gap: 4px;
+}
+
+.atalhos a {
+  padding: 4px 10px;
+  border-radius: var(--radius-small);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.atalhos a:hover {
+  background: #eceafc;
+}
+
+.atalhos a[aria-current='page'] {
+  background: var(--color-primary);
+  color: var(--color-white);
+}

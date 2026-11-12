@@ -1,0 +1,157 @@
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 32px 0 16px;
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.resumo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.resumo li {
+  padding: 8px 16px;
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  font-size: 0.9rem;
+}
+
+.resumo strong {
+  color: var(--color-primary-dark);
+  font-size: 1.1rem;
+}
+
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 18px;
+}
+
+.linha + .linha {
+  border-top: 1px solid var(--color-border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 64px;
+  padding: 6px;
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+}
+
+.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.info p {
+  margin: 0;
+}
+
+.nome {
+  font-weight: 700;
+  color: #333;
+}
+
+.inativo {
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #eee;
+  color: #777;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.alteracao {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.indicadores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.indicadores li {
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+
+.ok {
+  background: #e6f4e8;
+  color: var(--color-success);
+}
+
+.falta {
+  background: #f4f4f4;
+  color: #999;
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.acoes :global(.btn) {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 700px) {
+  .linha {
+    grid-template-columns: 72px 1fr;
+    gap: 12px 14px;
+  }
+
+  .logo {
+    width: 72px;
+    height: 52px;
+  }
+
+  .acoes {
+    grid-column: 1 / -1;
+  }
+
+  .acoes :global(.btn) {
+    flex: 1;
+  }
+}
+
+.voltar {
+  margin: 20px 0 0;
+  font-size: 0.9rem;
+}
