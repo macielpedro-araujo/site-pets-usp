@@ -11,7 +11,7 @@ export default {
   siteExterno: null,
   logo: '/pets/eefe/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-butanta.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da EEFE-USP, em São Paulo, na área de Ciências da Saúde.'],
   tutor: null,

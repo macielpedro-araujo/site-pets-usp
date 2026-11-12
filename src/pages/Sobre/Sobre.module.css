@@ -23,7 +23,6 @@
   align-items: center;
 }
 
-.imagem,
 .organograma {
   display: flex;
   align-items: center;
@@ -35,8 +34,21 @@
   font-weight: 600;
 }
 
+.figura {
+  margin: 0;
+}
+
+.figura figcaption {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #777;
+}
+
 .imagem {
+  width: 100%;
   aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
   box-shadow: 12px 12px 0 var(--color-highlight);
 }
 

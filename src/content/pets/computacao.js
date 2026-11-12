@@ -56,7 +56,7 @@ export default {
     {
       titulo: 'Codifique',
       descricao: 'Curso gratuito de lógica de programação e Python para estudantes do ensino médio de escolas públicas de São Carlos, com aulas dadas por membros do PET e monitores da USP.',
-      imagem: '/pets/computacao/frentes/codifique.svg',
+      imagem: '/pets/computacao/frentes/codifique.webp',
       link: null,
     },
     {
@@ -68,7 +68,7 @@ export default {
     {
       titulo: 'Overclock',
       descricao: 'Aulas e listas de exercícios de Introdução à Computação em C para calouros da USP São Carlos, com o objetivo de nivelar o conhecimento e reduzir a evasão nos cursos de computação.',
-      imagem: '/pets/computacao/frentes/overclock.svg',
+      imagem: '/pets/computacao/frentes/overclock.webp',
       link: null,
     },
     {
@@ -80,25 +80,25 @@ export default {
     {
       titulo: 'Full-Stack',
       descricao: 'Desenvolvimento de projetos completos, do front-end ao back-end, como este site dos PETs da USP e ferramentas para a comunidade acadêmica.',
-      imagem: '/pets/computacao/frentes/fullstack.svg',
+      imagem: '/pets/computacao/frentes/fullstack.webp',
       link: null,
     },
     {
       titulo: 'Pesquisa',
       descricao: 'Produção de estudos sobre temas acadêmicos e do mercado de trabalho em computação.',
-      imagem: '/pets/computacao/frentes/pesquisa.svg',
+      imagem: '/pets/computacao/frentes/pesquisa.webp',
       link: null,
     },
     {
       titulo: 'Social',
       descricao: 'Ações para a comunidade externa à USP, como campanhas de doação de sangue, arrecadações e eventos beneficentes.',
-      imagem: '/pets/computacao/frentes/social.svg',
+      imagem: '/pets/computacao/frentes/social.webp',
       link: null,
     },
     {
       titulo: 'Comunicação e Gestão',
       descricao: 'Redes sociais, identidade visual e a organização interna que mantém o grupo funcionando.',
-      imagem: '/pets/computacao/frentes/comunicacao.svg',
+      imagem: '/pets/computacao/frentes/comunicacao.webp',
       link: null,
     },
   ],

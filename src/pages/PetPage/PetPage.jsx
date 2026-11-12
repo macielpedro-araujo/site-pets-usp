@@ -3,6 +3,7 @@ import Avatar from '../../components/Avatar/Avatar.jsx'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb.jsx'
 import Carousel from '../../components/Carousel/Carousel.jsx'
 import CarrosselRolagem from '../../components/CarrosselRolagem/CarrosselRolagem.jsx'
+import CreditoFoto from '../../components/CreditoFoto/CreditoFoto.jsx'
 import EstadoVazio from '../../components/EstadoVazio/EstadoVazio.jsx'
 import {
   IconeEmail,
@@ -62,6 +63,7 @@ function Capa({ pet }) {
           <img src={urlPublica(pet.logo)} alt={`Logo do ${pet.nome}`} />
         </div>
       </div>
+      <CreditoFoto src={pet.fotoCapa} />
     </section>
   )
 }

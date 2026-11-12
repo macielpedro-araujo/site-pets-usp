@@ -11,7 +11,7 @@ export default {
   siteExterno: null,
   logo: '/pets/ecologia/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-piracicaba.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da ESALQ-USP, em Piracicaba, na área de Ciências Agrárias.'],
   tutor: null,

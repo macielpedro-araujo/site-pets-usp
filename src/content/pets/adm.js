@@ -10,7 +10,7 @@ export default {
   siteExterno: null,
   logo: '/pets/adm/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/fea.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FEA-USP, em São Paulo, na área de Ciências Sociais Aplicadas.'],
   tutor: null,

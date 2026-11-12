@@ -10,7 +10,7 @@ export default {
   siteExterno: null,
   logo: '/pets/iqsc/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-sao-carlos.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da IQSC-USP, em São Carlos, na área de Ciências Exatas e da Terra.'],
   tutor: null,

@@ -8,6 +8,7 @@ import Sobre from './pages/Sobre/Sobre.jsx'
 import Institucional from './pages/Institucional/Institucional.jsx'
 import Entrar from './pages/Entrar/Entrar.jsx'
 import NotFound from './pages/NotFound/NotFound.jsx'
+import Creditos from './pages/Creditos/Creditos.jsx'
 import MeusPedidos from './pages/area/MeusPedidos.jsx'
 import NovoPedido from './pages/area/NovoPedido.jsx'
 import DetalhePedido from './pages/area/DetalhePedido.jsx'
@@ -24,6 +25,7 @@ function App() {
         <Route path="/pets/:slug" element={<PetPage />} />
         <Route path="/sobre-o-programa-na-usp" element={<Sobre />} />
         <Route path="/institucional" element={<Institucional />} />
+        <Route path="/creditos" element={<Creditos />} />
         <Route path="/entrar" element={<Entrar />} />
 
         {/* Área do PET: só para contas com perfil "pet" */}

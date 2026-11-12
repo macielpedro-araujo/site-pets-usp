@@ -11,7 +11,7 @@ export default {
   siteExterno: null,
   logo: '/pets/pet-arvore/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-ribeirao.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Cursinho Popular do PET Medicina, gerido pelo grupo PET da FMRP-USP, em Ribeirão Preto, na área de Ciências da Saúde.'],
   tutor: null,

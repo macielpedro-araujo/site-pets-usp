@@ -11,7 +11,7 @@ export default {
   siteExterno: null,
   logo: '/pets/si-each/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/each.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da EACH-USP, em São Paulo, na área de Ciências Exatas e da Terra.'],
   tutor: null,

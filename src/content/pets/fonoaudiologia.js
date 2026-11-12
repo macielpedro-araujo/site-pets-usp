@@ -10,7 +10,7 @@ export default {
   siteExterno: null,
   logo: '/pets/fonoaudiologia/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-bauru.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FOB-USP, em Bauru, na área de Ciências da Saúde.'],
   tutor: null,

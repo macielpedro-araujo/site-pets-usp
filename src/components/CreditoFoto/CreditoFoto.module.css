@@ -1,0 +1,26 @@
+/* Fica no canto inferior direito do elemento pai (que precisa de position: relative) */
+.credito {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  z-index: 3;
+  max-width: calc(100% - 16px);
+  margin: 0;
+  padding: 1px 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.credito a {
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+}
+
+.credito a:hover {
+  text-decoration: underline;
+}

@@ -11,7 +11,7 @@ export default {
   siteExterno: null,
   logo: '/pets/engenharia-de-alimentos/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-pirassununga.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FZEA-USP, em Pirassununga, na área de Engenharia.'],
   tutor: null,

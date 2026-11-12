@@ -1,0 +1,90 @@
+[
+  {
+    "arquivo": "/pets/computacao/",
+    "titulo": "Logo, fotos do grupo, dos membros e ilustrações das frentes",
+    "autor": "PET Computação ICMC-USP",
+    "licenca": "Imagens do próprio grupo, publicadas com autorização",
+    "urlLicenca": null,
+    "urlOrigem": "https://pet.icmc.usp.br"
+  },
+  {
+    "arquivo": "/fotos/campus-butanta.jpg",
+    "titulo": "At USP 2018 104",
+    "autor": "Photograph by Mike Peel (www.mikepeel.net).",
+    "licenca": "CC BY-SA 4.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/4.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:At_USP_2018_104.jpg"
+  },
+  {
+    "arquivo": "/fotos/campus-sao-carlos.jpg",
+    "titulo": "São Carlos - E1 USP",
+    "autor": "Sintegrity",
+    "licenca": "CC BY-SA 4.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/4.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:S%C3%A3o_Carlos_-_E1_USP_(19).jpg"
+  },
+  {
+    "arquivo": "/fotos/campus-piracicaba.jpg",
+    "titulo": "Esalq - Leonardo Gonsales Zimmermann",
+    "autor": "MBA USP Esalq",
+    "licenca": "CC0",
+    "urlLicenca": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:Esalq_-_Leonardo_Gonsales_Zimmermann.jpg"
+  },
+  {
+    "arquivo": "/fotos/campus-ribeirao.jpg",
+    "titulo": "Faculdade de Medicina de Ribeirão Preto 01",
+    "autor": "MARCO AURELIO ESPARZ…",
+    "licenca": "CC BY-SA 3.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/3.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:Faculdade_de_Medicina_de_Ribeir%C3%A3o_Preto_01.jpg"
+  },
+  {
+    "arquivo": "/fotos/campus-pirassununga.jpg",
+    "titulo": "Plantação de milho na USP",
+    "autor": "Leonardo P. de Magalhães",
+    "licenca": "CC BY-SA 4.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/4.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:Planta%C3%A7%C3%A3o_de_milho_na_USP.jpg"
+  },
+  {
+    "arquivo": "/fotos/campus-bauru.jpg",
+    "titulo": "O Centrinho de Bauru",
+    "autor": "Diogo Nani",
+    "licenca": "CC BY-SA 4.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/4.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:O_Centrinho_de_Bauru.jpg"
+  },
+  {
+    "arquivo": "/fotos/fd-largo-sao-francisco.jpg",
+    "titulo": "Escola de direito largo do sao francisco",
+    "autor": "Luiz coelho",
+    "licenca": "CC BY 3.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by/3.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:Escola_de_direito_largo_do_sao_francisco.jpg"
+  },
+  {
+    "arquivo": "/fotos/fflch.jpg",
+    "titulo": "Prédio das Sociais (FFLCH - USP)",
+    "autor": "Odara Santos",
+    "licenca": "CC0",
+    "urlLicenca": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:Pr%C3%A9dio_das_Sociais_(FFLCH_-_USP).jpg"
+  },
+  {
+    "arquivo": "/fotos/fea.jpg",
+    "titulo": "Sem título (Tomie Ohtake FEA) - USP 01",
+    "autor": "Thaismay",
+    "licenca": "CC BY-SA 4.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/4.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:Sem_t%C3%ADtulo_(Tomie_Ohtake_FEA)_-_USP_01.jpg"
+  },
+  {
+    "arquivo": "/fotos/each.jpg",
+    "titulo": "EACH I1 Exterior",
+    "autor": "Pedro Nardi",
+    "licenca": "CC BY-SA 4.0",
+    "urlLicenca": "https://creativecommons.org/licenses/by-sa/4.0",
+    "urlOrigem": "https://commons.wikimedia.org/wiki/File:EACH_I1_Exterior.jpg"
+  }
+]

@@ -11,7 +11,7 @@ export default {
   siteExterno: null,
   logo: '/pets/ciencias-sociais/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/fflch.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FFLCH-USP, em São Paulo, na área de Ciências Humanas.'],
   tutor: null,

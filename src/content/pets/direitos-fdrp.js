@@ -10,7 +10,7 @@ export default {
   siteExterno: null,
   logo: '/pets/direitos-fdrp/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-ribeirao.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FDRP-USP, em Ribeirão Preto, na área de Ciências Sociais Aplicadas.'],
   tutor: null,

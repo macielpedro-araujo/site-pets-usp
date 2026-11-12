@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Carousel from '../../components/Carousel/Carousel.jsx'
+import CreditoFoto from '../../components/CreditoFoto/CreditoFoto.jsx'
 import SectionTitle from '../../components/SectionTitle/SectionTitle.jsx'
 import { IconeCapelo, IconeLivro, IconeRede } from '../../components/icons/Icones.jsx'
 import { historiaCurta, pilares, slides } from '../../content/home.js'
@@ -20,21 +21,32 @@ function Slide({ slide }) {
   const conteudo = (
     <div className={styles.slide}>
       {slide.imagem && <img src={urlPublica(slide.imagem)} alt="" className={styles.slideImagem} />}
-      {slide.titulo && <p className={styles.slideTitulo}>{slide.titulo}</p>}
+      <div className={styles.slideTexto}>
+        {slide.legenda && <p className={styles.slideLegenda}>{slide.legenda}</p>}
+        {slide.titulo && <p className={styles.slideTitulo}>{slide.titulo}</p>}
+      </div>
     </div>
   )
-  if (!slide.link) return conteudo
-  if (slide.link.startsWith('http')) {
-    return (
+  // O crédito da foto fica fora do link do slide (ele é um link próprio)
+  let slideComLink = conteudo
+  if (slide.link?.startsWith('http')) {
+    slideComLink = (
       <a href={slide.link} target="_blank" rel="noreferrer" className={styles.slideLink}>
         {conteudo}
       </a>
     )
+  } else if (slide.link) {
+    slideComLink = (
+      <Link to={slide.link} className={styles.slideLink}>
+        {conteudo}
+      </Link>
+    )
   }
   return (
-    <Link to={slide.link} className={styles.slideLink}>
-      {conteudo}
-    </Link>
+    <div className={styles.slideCaixa}>
+      {slideComLink}
+      <CreditoFoto src={slide.imagem} />
+    </div>
   )
 }
 

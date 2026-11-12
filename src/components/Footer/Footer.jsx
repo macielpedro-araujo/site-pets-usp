@@ -15,6 +15,7 @@ export default function Footer() {
             <li><Link to="/sobre-o-programa-na-usp">Sobre o programa na USP</Link></li>
             <li><Link to="/institucional">Institucional</Link></li>
             <li><Link to="/entrar">Área dos PETs</Link></li>
+            <li><Link to="/creditos">Créditos das imagens</Link></li>
           </ul>
         </nav>
         <p className={styles.mantido}>

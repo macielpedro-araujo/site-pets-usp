@@ -3,6 +3,7 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle.jsx'
 import { comoFunciona, educacaoTutorial, historia } from '../../content/sobre.js'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 import styles from './Sobre.module.css'
+import urlPublica from '../../utils/urlPublica.js'
 
 export default function Sobre() {
   useTituloPagina('Sobre o programa na USP')
@@ -30,10 +31,14 @@ export default function Sobre() {
             <p key={i}>{p}</p>
           ))}
         </div>
-        {/* TODO: foto real de um encontro dos PETs */}
-        <div className={styles.imagem} role="img" aria-label="Imagem ilustrativa (em breve)">
-          <span>Imagem em breve</span>
-        </div>
+        <figure className={styles.figura}>
+          <img
+            src={urlPublica('/pets/computacao/galeria/2025-imersao.png')}
+            alt="Membros do PET Computação reunidos numa atividade do grupo"
+            className={styles.imagem}
+          />
+          <figcaption>PET Computação (ICMC-USP) em atividade, 2025</figcaption>
+        </figure>
       </section>
 
       <section className={styles.secao}>

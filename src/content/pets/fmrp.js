@@ -10,7 +10,7 @@ export default {
   siteExterno: null,
   logo: '/pets/fmrp/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/campus-ribeirao.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FMRP-USP, em Ribeirão Preto, na área de Ciências da Saúde.'],
   tutor: null,

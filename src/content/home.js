@@ -1,22 +1,31 @@
 // Conteúdo da página inicial.
 
-// Slides do carrossel de destaque. imagem e link são opcionais.
-// TODO: trocar pelos destaques reais (com imagens em public/home/)
+// Slides do carrossel de destaque: fotos dos campi (Wikimedia Commons, créditos em /creditos).
+// imagem, titulo e link são opcionais.
 export const slides = [
   {
-    imagem: null,
+    imagem: '/fotos/campus-butanta.jpg',
+    legenda: 'Cidade Universitária, São Paulo',
     titulo: 'Conheça os grupos PET da USP',
     link: '/todos-os-pets-da-usp',
   },
   {
-    imagem: null,
+    imagem: '/fotos/campus-sao-carlos.jpg',
+    legenda: 'Campus de São Carlos',
     titulo: 'Ensino, pesquisa e extensão desde 1979',
     link: '/sobre-o-programa-na-usp',
   },
   {
-    imagem: null,
-    titulo: 'Faz parte de um PET? Acesse a Área dos PETs',
-    link: '/entrar',
+    imagem: '/fotos/campus-piracicaba.jpg',
+    legenda: 'ESALQ, Piracicaba',
+    titulo: 'Grupos PET em vários campi da USP',
+    link: '/todos-os-pets-da-usp',
+  },
+  {
+    imagem: '/fotos/campus-ribeirao.jpg',
+    legenda: 'Campus de Ribeirão Preto',
+    titulo: 'Notícias do programa na USP',
+    link: '/noticias',
   },
 ]
 

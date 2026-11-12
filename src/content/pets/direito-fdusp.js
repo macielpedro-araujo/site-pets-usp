@@ -10,7 +10,7 @@ export default {
   siteExterno: null,
   logo: '/pets/direito-fdusp/logo.png',
   corDestaque: null,
-  fotoCapa: null,
+  fotoCapa: '/fotos/fd-largo-sao-francisco.jpg', // foto do campus/unidade; o PET pode trocar pelo editor
   fotoGrupo: null,
   sobre: ['Grupo PET da FDUSP-USP, em São Paulo, na área de Ciências Sociais Aplicadas.'],
   tutor: null,
