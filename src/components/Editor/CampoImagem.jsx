@@ -2,10 +2,13 @@ import { useId, useState } from 'react'
 import { enviarImagem, urlImagem } from '../../services/imagens.js'
 import styles from './Editor.module.css'
 
+export const AJUDA_IMAGEM = 'Imagens JPEG, PNG ou WebP, até 5 MB. Elas são reduzidas automaticamente.'
+
 // Campo de upload de imagem com prévia. A imagem é reduzida no navegador e enviada na hora;
 // o caminho devolvido vai para o formulário (e só fica no ar quando o bloco for salvo).
 // dono: "pets/<slug>" ou "noticias". formato: "paisagem", "quadrado" ou "logo" (só a prévia muda).
-export default function CampoImagem({ rotulo, valor, aoMudar, dono, ladoMaximo = 1600, formato = 'paisagem' }) {
+// mostrarAjuda: false em listas, para a dica de formato não se repetir em cada item
+export default function CampoImagem({ rotulo, valor, aoMudar, dono, ladoMaximo = 1600, formato = 'paisagem', mostrarAjuda = true }) {
   const id = useId()
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState('')
@@ -53,7 +56,7 @@ export default function CampoImagem({ rotulo, valor, aoMudar, dono, ladoMaximo =
           )}
         </div>
       </div>
-      <span className="campo-ajuda">JPEG, PNG ou WebP, até 5 MB. A imagem é reduzida automaticamente.</span>
+      {mostrarAjuda && <span className="campo-ajuda">{AJUDA_IMAGEM}</span>}
       {erro && <span className="campo-erro">{erro}</span>}
     </div>
   )

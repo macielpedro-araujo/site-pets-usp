@@ -77,3 +77,11 @@
     transition: none;
   }
 }
+
+/* No celular, o card de projeto fica com a imagem em cima do texto: as setas sobem para a
+   altura da imagem, para não cobrir o título */
+@media (max-width: 700px) {
+  .seta {
+    top: 90px;
+  }
+}

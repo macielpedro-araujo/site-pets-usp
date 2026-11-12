@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { areas } from '../../services/pets.js'
 import Bloco from './Bloco.jsx'
-import CampoImagem from './CampoImagem.jsx'
+import CampoImagem, { AJUDA_IMAGEM } from './CampoImagem.jsx'
 import ListaEditavel from './ListaEditavel.jsx'
 import styles from './Editor.module.css'
 
@@ -210,7 +210,7 @@ export function BlocoMembros({ pet, salvar, dono }) {
   }
 
   return (
-    <Bloco titulo="5. Membros" exigeLgpd aoSalvar={aoSalvar}>
+    <Bloco titulo="5. Membros" descricao={AJUDA_IMAGEM} exigeLgpd aoSalvar={aoSalvar}>
       <ListaEditavel
         itens={membros}
         aoMudar={setMembros}
@@ -226,6 +226,7 @@ export function BlocoMembros({ pet, salvar, dono }) {
               dono={dono}
               ladoMaximo={480}
               formato="quadrado"
+              mostrarAjuda={false}
             />
             <div>
               <Campo rotulo="Nome" idExtra={i} valor={membro.nome} aoMudar={(nome) => mudar({ ...membro, nome })} />
@@ -260,7 +261,7 @@ export function BlocoProjetos({ pet, salvar, dono }) {
   }
 
   return (
-    <Bloco titulo="6. Atividades e projetos" aoSalvar={aoSalvar}>
+    <Bloco titulo="6. Atividades e projetos" descricao={AJUDA_IMAGEM} aoSalvar={aoSalvar}>
       <ListaEditavel
         itens={projetos}
         aoMudar={setProjetos}
@@ -284,6 +285,7 @@ export function BlocoProjetos({ pet, salvar, dono }) {
               aoMudar={(imagem) => mudar({ ...projeto, imagem })}
               dono={dono}
               ladoMaximo={1200}
+              mostrarAjuda={false}
             />
             <Campo
               rotulo="Link (opcional)"
@@ -311,7 +313,7 @@ export function BlocoGaleria({ pet, salvar, dono }) {
   }
 
   return (
-    <Bloco titulo="7. Galeria" exigeLgpd aoSalvar={aoSalvar}>
+    <Bloco titulo="7. Galeria" descricao={AJUDA_IMAGEM} exigeLgpd aoSalvar={aoSalvar}>
       <ListaEditavel
         itens={fotos}
         aoMudar={setFotos}
@@ -320,7 +322,13 @@ export function BlocoGaleria({ pet, salvar, dono }) {
         rotuloItem="foto"
         renderItem={(foto, mudar, i) => (
           <>
-            <CampoImagem rotulo="Foto" valor={foto.src} aoMudar={(src) => mudar({ ...foto, src })} dono={dono} />
+            <CampoImagem
+              rotulo="Foto"
+              valor={foto.src}
+              aoMudar={(src) => mudar({ ...foto, src })}
+              dono={dono}
+              mostrarAjuda={false}
+            />
             <Campo rotulo="Legenda" idExtra={i} valor={foto.legenda} aoMudar={(legenda) => mudar({ ...foto, legenda })} />
           </>
         )}
