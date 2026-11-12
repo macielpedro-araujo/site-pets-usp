@@ -16,11 +16,11 @@
 }
 
 .logo {
-  max-width: 85%;
-  max-height: 75%;
+  /* Sem largura fixa: o logo nunca é ampliado além do tamanho natural, para não borrar
+     (SPEC-v2 §6). Logos grandes são reduzidos para caber no card. */
+  max-width: 100%;
+  max-height: 96px;
   object-fit: contain;
-  /* os logos provisórios têm fundo branco: "multiply" faz o branco sumir no cinza */
+  /* alguns logos têm fundo branco: "multiply" faz o branco sumir no cinza do card */
   mix-blend-mode: multiply;
-  width: 100%;
-  height: auto;
 }
