@@ -4,18 +4,14 @@ import CreditoFoto from '../../components/CreditoFoto/CreditoFoto.jsx'
 import SectionTitle from '../../components/SectionTitle/SectionTitle.jsx'
 import { IconeCapelo, IconeLivro, IconeRede } from '../../components/icons/Icones.jsx'
 import { historiaCurta, pilares, slides } from '../../content/home.js'
-import { noticias } from '../../content/noticias.js'
+import NoticiaCard from '../../components/NoticiaCard/NoticiaCard.jsx'
+import useDados from '../../hooks/useDados.js'
+import { listarNoticias } from '../../services/noticias.js'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 import styles from './Home.module.css'
 import urlPublica from '../../utils/urlPublica.js'
 
 const icones = { capelo: IconeCapelo, livro: IconeLivro, rede: IconeRede }
-
-// Formata 'AAAA-MM-DD' como '20/10/2026' (sem fuso, para não mudar o dia)
-function formatarData(data) {
-  const [ano, mes, dia] = data.split('-')
-  return `${dia}/${mes}/${ano}`
-}
 
 function Slide({ slide }) {
   const conteudo = (
@@ -52,6 +48,7 @@ function Slide({ slide }) {
 
 export default function Home() {
   useTituloPagina(null)
+  const { dados: noticias, carregando, erro } = useDados(() => listarNoticias(), [])
 
   return (
     <div className="container">
@@ -105,29 +102,27 @@ export default function Home() {
         </section>
       </div>
 
-      {/* 4. Últimas notícias */}
-      <SectionTitle titulo="Últimas Notícias" subtitulo="Jornal da USP sobre o PET" estilo="azul" />
-      <ul className={styles.noticias}>
-        {noticias.slice(0, 6).map((noticia) => (
-          <li key={noticia.titulo + noticia.data}>
-            <a href={noticia.link} target="_blank" rel="noreferrer" className={styles.noticia}>
-              {noticia.imagem ? (
-                <img src={urlPublica(noticia.imagem)} alt="" className={styles.noticiaImagem} />
-              ) : (
-                <div className={styles.noticiaImagem} aria-hidden="true" />
-              )}
-              <div className={styles.noticiaTexto}>
-                <time dateTime={noticia.data}>{formatarData(noticia.data)}</time>
-                <h3>{noticia.titulo}</h3>
-                <p>{noticia.resumo}</p>
-                <span className={styles.lerMais}>
-                  Ler no Jornal da USP <span className="sr-only">(abre em nova aba)</span>
-                </span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {/* 4. Últimas notícias (publicadas pela secretaria do PET USP) */}
+      <SectionTitle titulo="Últimas Notícias" subtitulo="do PET na USP" estilo="azul" />
+      {carregando && <p className="carregando">Carregando notícias…</p>}
+      {erro && <p className="aviso-erro">Não foi possível carregar as notícias.</p>}
+      {noticias?.length === 0 && <p className={styles.semNoticias}>Nenhuma notícia publicada ainda.</p>}
+      {noticias?.length > 0 && (
+        <>
+          <ul className={styles.noticias}>
+            {noticias.slice(0, 6).map((noticia) => (
+              <li key={noticia.id}>
+                <NoticiaCard noticia={noticia} />
+              </li>
+            ))}
+          </ul>
+          <p className={styles.todasNoticias}>
+            <Link to="/noticias" className="btn btn-secundario">
+              Ver todas as notícias
+            </Link>
+          </p>
+        </>
+      )}
     </div>
   )
 }

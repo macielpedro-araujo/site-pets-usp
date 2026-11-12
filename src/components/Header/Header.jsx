@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import { IconeMenu, IconeFechar } from '../icons/Icones.jsx'
 import styles from './Header.module.css'
 import urlPublica from '../../utils/urlPublica.js'
+import areaDoPerfil from '../../utils/areaDoPerfil.js'
 
 const links = [
   { para: '/todos-os-pets-da-usp', texto: 'Todos os PETs da USP' },
@@ -16,9 +17,7 @@ export default function Header() {
   const { perfil } = useAuth()
 
   // "Área dos PETs" leva ao lugar certo conforme quem está logado
-  let linkArea = '/entrar'
-  if (perfil === 'pet') linkArea = '/area-do-pet'
-  if (perfil === 'cepet') linkArea = '/painel'
+  const linkArea = areaDoPerfil(perfil)
 
   const fecharMenu = () => setMenuAberto(false)
 

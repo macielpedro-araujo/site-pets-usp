@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import styles from './PetCard.module.css'
-import urlPublica from '../../utils/urlPublica.js'
+import { urlImagem } from '../../services/imagens.js'
 
 // Card com o logo de um PET. Abre a página do PET ou o site externo dele.
 export default function PetCard({ pet }) {
-  const conteudo = <img src={urlPublica(pet.logo)} alt={pet.nome} className={styles.logo} loading="lazy" />
+  const conteudo = <img src={urlImagem(pet.logo)} alt={pet.nome} className={styles.logo} loading="lazy" />
 
   if (pet.siteExterno) {
     return (

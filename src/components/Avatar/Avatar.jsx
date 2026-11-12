@@ -1,5 +1,5 @@
 import styles from './Avatar.module.css'
-import urlPublica from '../../utils/urlPublica.js'
+import { urlImagem } from '../../services/imagens.js'
 
 // Foto redonda de uma pessoa. Sem foto, mostra as iniciais do nome.
 export default function Avatar({ nome, foto, tamanho = 96 }) {
@@ -13,7 +13,7 @@ export default function Avatar({ nome, foto, tamanho = 96 }) {
 
   if (foto) {
     return (
-      <img src={urlPublica(foto)} alt="" className={styles.avatar} style={{ width: tamanho, height: tamanho }} />
+      <img src={urlImagem(foto)} alt="" className={styles.avatar} style={{ width: tamanho, height: tamanho }} />
     )
   }
 

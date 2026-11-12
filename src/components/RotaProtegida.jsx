@@ -1,9 +1,12 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import areaDoPerfil from '../utils/areaDoPerfil.js'
 
-// Só deixa entrar quem está logado com o perfil certo ("pet" ou "cepet").
+// Só deixa entrar quem está logado com um dos perfis permitidos ("pet", "cepet" ou "secretaria").
 // Quem não está logado vai para /entrar; quem tem outro perfil vai para a sua própria área.
-export default function RotaProtegida({ perfil }) {
+// Atenção: isto só esconde a tela. Quem garante a segurança são as regras dos services
+// (e, no futuro, do servidor).
+export default function RotaProtegida({ perfis }) {
   const { usuario, carregando } = useAuth()
   const location = useLocation()
 
@@ -15,8 +18,8 @@ export default function RotaProtegida({ perfil }) {
     return <Navigate to="/entrar" replace state={{ voltarPara: location.pathname }} />
   }
 
-  if (usuario.perfil !== perfil) {
-    return <Navigate to={usuario.perfil === 'cepet' ? '/painel' : '/area-do-pet'} replace />
+  if (!perfis.includes(usuario.perfil)) {
+    return <Navigate to={areaDoPerfil(usuario.perfil)} replace />
   }
 
   return <Outlet />

@@ -183,3 +183,11 @@ textarea {
   color: var(--color-success);
   margin-bottom: 16px;
 }
+
+/* Texto mostrado enquanto os dados carregam */
+.carregando {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  color: #888;
+  text-align: center;
+}

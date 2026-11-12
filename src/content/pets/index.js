@@ -1,4 +1,6 @@
-// Junta todos os PETs numa lista. Para adicionar um PET novo:
+// Junta todos os PETs numa lista: é o CONTEÚDO INICIAL. As páginas leem os PETs por
+// src/services/pets.js (que parte desta lista e aplica as edições feitas pelos PETs).
+// Para adicionar um PET novo:
 // 1) crie src/content/pets/<slug>.js  2) importe aqui  3) coloque na lista.
 import adm from './adm.js'
 import biotecnologiaAgricola from './biotecnologia-agricola.js'
@@ -47,11 +49,6 @@ export const listaPets = [
   siEach,
   zootecniaFzea,
 ]
-
-// Procura um PET pelo slug (o pedaço da URL). Retorna undefined se não existir.
-export function buscarPet(slug) {
-  return listaPets.find((pet) => pet.slug === slug)
-}
 
 // As 6 áreas usadas no filtro da galeria (SPEC §6.2)
 export const areas = [

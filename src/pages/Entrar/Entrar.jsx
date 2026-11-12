@@ -1,14 +1,21 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.jsx'
-import { recuperarSenha } from '../../services/auth.js'
-import { CONTAS_DEMO, SENHA_DEMO } from '../../services/demo/authDemo.js'
-import { modoDemo } from '../../services/supabaseClient.js'
+import { CONTAS_TESTE, SENHA_TESTE, recuperarSenha } from '../../services/auth.js'
+import areaDoPerfil from '../../utils/areaDoPerfil.js'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 import styles from './Entrar.module.css'
 
-function destinoDoPerfil(perfil) {
-  return perfil === 'cepet' ? '/painel' : '/area-do-pet'
+const TEXTO_BOTAO = {
+  pet: 'Editar a página do meu PET',
+  cepet: 'Ir para o painel',
+  secretaria: 'Ir para as notícias',
+}
+
+const DESCRICAO_PERFIL = {
+  pet: 'Edita a página do',
+  cepet: 'CEPETUSP: todos os PETs',
+  secretaria: 'Publica as notícias',
 }
 
 export default function Entrar() {
@@ -36,7 +43,7 @@ export default function Entrar() {
       const u = await entrar(email, senha)
       // Volta para a página que a pessoa tentou abrir, se for da área dela
       const voltarPara = location.state?.voltarPara
-      const destino = destinoDoPerfil(u.perfil)
+      const destino = areaDoPerfil(u.perfil)
       navigate(voltarPara?.startsWith(destino) ? voltarPara : destino, { replace: true })
     } catch (err) {
       setErro(err.message)
@@ -59,10 +66,10 @@ export default function Entrar() {
     }
   }
 
-  // Preenche o formulário com uma conta de teste (só no modo demo)
+  // Preenche o formulário com uma conta de teste (só existem no modo local)
   function usarConta(conta) {
     setEmail(conta.email)
-    setSenha(SENHA_DEMO)
+    setSenha(SENHA_TESTE)
     setErro('')
   }
 
@@ -75,8 +82,8 @@ export default function Entrar() {
             Conectado como <strong>{usuario.nome}</strong> ({usuario.email}).
           </p>
           <div className={styles.acoes}>
-            <Link to={destinoDoPerfil(usuario.perfil)} className="btn btn-primario">
-              {usuario.perfil === 'cepet' ? 'Ir para o painel' : 'Ir para a Área do PET'}
+            <Link to={areaDoPerfil(usuario.perfil)} className="btn btn-primario">
+              {TEXTO_BOTAO[usuario.perfil]}
             </Link>
             <button type="button" className="btn btn-secundario" onClick={sair}>
               Sair
@@ -92,7 +99,7 @@ export default function Entrar() {
       <div className={styles.cartao}>
         <h1>Área dos PETs</h1>
         <p className={styles.intro}>
-          Entre com a conta do seu PET para pedir alterações na página do grupo e acompanhar os pedidos.
+          Entre com a conta do seu PET para editar a página do grupo. As alterações são publicadas na hora.
         </p>
 
         <form onSubmit={aoEnviar} noValidate>
@@ -135,18 +142,20 @@ export default function Entrar() {
         </p>
       </div>
 
-      {modoDemo && (
+      {CONTAS_TESTE.length > 0 && (
         <aside className={styles.demo} aria-labelledby="titulo-demo">
           <h2 id="titulo-demo">Contas de teste</h2>
           <p>
-            Senha de todas: <code>{SENHA_DEMO}</code>. Clique numa conta para preencher o formulário.
+            Senha de todas: <code>{SENHA_TESTE}</code>. Clique numa conta para preencher o formulário.
           </p>
           <ul>
-            {CONTAS_DEMO.map((conta) => (
+            {CONTAS_TESTE.map((conta) => (
               <li key={conta.email}>
                 <button type="button" onClick={() => usarConta(conta)}>
                   <strong>{conta.email}</strong>
-                  <span>{conta.perfil === 'cepet' ? 'CEPETUSP (painel)' : conta.nome}</span>
+                  <span>
+                    {DESCRICAO_PERFIL[conta.perfil]} {conta.perfil === 'pet' && conta.nome}
+                  </span>
                 </button>
               </li>
             ))}

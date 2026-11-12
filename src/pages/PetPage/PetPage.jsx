@@ -15,11 +15,12 @@ import {
   IconeTelegram,
   IconeYoutube,
 } from '../../components/icons/Icones.jsx'
-import { buscarPet } from '../../content/pets/index.js'
+import useDados from '../../hooks/useDados.js'
+import { buscarPet } from '../../services/pets.js'
+import { urlImagem } from '../../services/imagens.js'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 import NotFound from '../NotFound/NotFound.jsx'
 import styles from './PetPage.module.css'
-import urlPublica from '../../utils/urlPublica.js'
 
 // Redes sociais que podem aparecer, na ordem em que são mostradas
 const redesConhecidas = [
@@ -50,7 +51,7 @@ function Capa({ pet }) {
 
   return (
     <section className={styles.capa} style={estilo}>
-      {pet.fotoCapa && <img src={urlPublica(pet.fotoCapa)} alt="" className={styles.capaFoto} />}
+      {pet.fotoCapa && <img src={urlImagem(pet.fotoCapa)} alt="" className={styles.capaFoto} />}
       <div className={`container ${styles.capaConteudo}`}>
         <div>
           <h1 className={styles.nome}>{pet.nome}</h1>
@@ -60,7 +61,7 @@ function Capa({ pet }) {
           </p>
         </div>
         <div className={styles.logoCaixa}>
-          <img src={urlPublica(pet.logo)} alt={`Logo do ${pet.nome}`} />
+          <img src={urlImagem(pet.logo)} alt={`Logo do ${pet.nome}`} />
         </div>
       </div>
       <CreditoFoto src={pet.fotoCapa} />
@@ -112,7 +113,7 @@ function Projetos({ projetos }) {
         renderItem={(projeto) => (
           <article className={styles.projeto}>
             {projeto.imagem ? (
-              <img src={urlPublica(projeto.imagem)} alt="" className={styles.projetoImagem} />
+              <img src={urlImagem(projeto.imagem)} alt="" className={styles.projetoImagem} />
             ) : (
               <div className={styles.projetoImagem} aria-hidden="true" />
             )}
@@ -140,7 +141,7 @@ function Galeria({ fotos }) {
       {fotos.map((foto, i) => (
         <li key={i}>
           <figure className={styles.foto}>
-            <img src={urlPublica(foto.src)} alt={foto.legenda || ''} loading="lazy" />
+            <img src={urlImagem(foto.src)} alt={foto.legenda || ''} loading="lazy" />
             {foto.legenda && <figcaption>{foto.legenda}</figcaption>}
           </figure>
         </li>
@@ -186,9 +187,11 @@ function Contato({ pet }) {
 // Página padrão de um PET (SPEC §6.5, com a capa e a galeria da SPEC-v2 §4 e §5)
 export default function PetPage() {
   const { slug } = useParams()
-  const pet = buscarPet(slug)
-  useTituloPagina(pet ? pet.nome : 'Página não encontrada')
+  const { dados: pet, carregando, erro } = useDados(() => buscarPet(slug), [slug])
+  useTituloPagina(pet ? pet.nome : carregando ? 'Carregando' : 'Página não encontrada')
 
+  if (carregando) return <p className="container carregando">Carregando…</p>
+  if (erro) return <p className="container aviso-erro">Não foi possível carregar esta página: {erro}</p>
   if (!pet) return <NotFound />
 
   return (
@@ -206,7 +209,7 @@ export default function PetPage() {
 
       <div className="container">
         {pet.fotoGrupo && (
-          <img src={urlPublica(pet.fotoGrupo)} alt={`Foto do grupo ${pet.nome}`} className={styles.fotoGrupo} />
+          <img src={urlImagem(pet.fotoGrupo)} alt={`Foto do grupo ${pet.nome}`} className={styles.fotoGrupo} />
         )}
 
         <Secao id="titulo-sobre" titulo="Sobre nós">

@@ -1,15 +1,16 @@
-// Login do modo demonstração: contas fixas e sessão guardada no localStorage.
+// Login do modo local: contas fixas e sessão guardada no localStorage.
 import { esperar, gravar, ler, remover } from './armazenamento.js'
 
-const CHAVE_SESSAO = 'pets-usp-demo-sessao'
+const CHAVE_SESSAO = 'pets-usp-sessao'
 
-// Contas de teste (SPEC §7.4). Senha de todas: demo1234
-export const CONTAS_DEMO = [
-  { id: 'demo-computacao', email: 'computacao@demo.pet', nome: 'PET Computação', perfil: 'pet', petSlug: 'computacao' },
-  { id: 'demo-iqsc', email: 'iqsc@demo.pet', nome: 'PET IQSC', perfil: 'pet', petSlug: 'iqsc' },
-  { id: 'demo-cepet', email: 'cepet@demo.pet', nome: 'CEPETUSP', perfil: 'cepet', petSlug: null },
+// Contas de teste (SPEC §2.4). Senha de todas: demo1234
+export const CONTAS_TESTE = [
+  { id: 'local-computacao', email: 'computacao@demo.pet', nome: 'PET Computação', perfil: 'pet', petSlug: 'computacao' },
+  { id: 'local-filosofia', email: 'filosofia@demo.pet', nome: 'PET Filosofia', perfil: 'pet', petSlug: 'filosofia' },
+  { id: 'local-cepet', email: 'cepet@demo.pet', nome: 'CEPETUSP', perfil: 'cepet', petSlug: null },
+  { id: 'local-secretaria', email: 'secretaria@demo.pet', nome: 'Secretaria do PET USP', perfil: 'secretaria', petSlug: null },
 ]
-export const SENHA_DEMO = 'demo1234'
+export const SENHA_TESTE = 'demo1234'
 
 // Quem quer ser avisado quando a sessão mudar
 const ouvintes = new Set()
@@ -20,8 +21,8 @@ function avisar(usuario) {
 
 export async function entrar(email, senha) {
   await esperar()
-  const conta = CONTAS_DEMO.find((c) => c.email === email.trim().toLowerCase())
-  if (!conta || senha !== SENHA_DEMO) {
+  const conta = CONTAS_TESTE.find((c) => c.email === email.trim().toLowerCase())
+  if (!conta || senha !== SENHA_TESTE) {
     throw new Error('E-mail ou senha incorretos.')
   }
   gravar(CHAVE_SESSAO, conta)
@@ -52,5 +53,5 @@ export function aoMudarSessao(cb) {
 }
 
 export async function recuperarSenha() {
-  throw new Error('No modo demonstração não é possível recuperar a senha. Use uma das contas de teste.')
+  throw new Error('A recuperação de senha ainda não está disponível. Fale com o CEPETUSP.')
 }

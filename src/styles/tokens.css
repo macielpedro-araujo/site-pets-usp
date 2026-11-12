@@ -16,16 +16,6 @@
   --color-danger: #c62828;
   --color-success: #2e7d32;
 
-  /* Cores dos status dos pedidos (SPEC §6.8) */
-  --status-pendente-bg: #fff3c4;
-  --status-pendente-text: #7a5a00;
-  --status-andamento-bg: #e1e4ff;
-  --status-andamento-text: #2b17d0;
-  --status-concluido-bg: #dcf2df;
-  --status-concluido-text: #1e6b2a;
-  --status-recusado-bg: #f6e0e0;
-  --status-recusado-text: #9b2c2c;
-
   --font-title: 'Ubuntu', system-ui, sans-serif;
   --font-text: 'Open Sans', system-ui, sans-serif;
 

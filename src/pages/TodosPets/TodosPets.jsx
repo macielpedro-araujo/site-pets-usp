@@ -2,14 +2,15 @@ import { useState } from 'react'
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb.jsx'
 import PetCard from '../../components/PetCard/PetCard.jsx'
 import { IconeFunil, IconeSetaBaixo } from '../../components/icons/Icones.jsx'
-import { areas, listaPets } from '../../content/pets/index.js'
+import useDados from '../../hooks/useDados.js'
+import { areas, listarPets } from '../../services/pets.js'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 import styles from './TodosPets.module.css'
 
 // Lista de campi que aparecem nos dados, sem repetir e em ordem alfabética
-const campi = [...new Set(listaPets.map((pet) => pet.campus).filter(Boolean))].sort((a, b) =>
-  a.localeCompare(b, 'pt-BR'),
-)
+function listarCampi(pets) {
+  return [...new Set(pets.map((pet) => pet.campus).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'pt-BR'))
+}
 
 function compararNome(a, b) {
   return a.nome.localeCompare(b.nome, 'pt-BR')
@@ -30,6 +31,7 @@ export default function TodosPets() {
   const [areasEscolhidas, setAreasEscolhidas] = useState([])
   const [campus, setCampus] = useState('')
   const [filtrosAbertos, setFiltrosAbertos] = useState(true)
+  const { dados: listaPets, carregando, erro } = useDados(listarPets, [])
 
   function alternarArea(area) {
     if (areasEscolhidas.includes(area)) {
@@ -44,8 +46,13 @@ export default function TodosPets() {
     setCampus('')
   }
 
-  // Aplica os filtros e depois a ordenação
+  if (carregando) return <p className="container carregando">Carregando os PETs…</p>
+  if (erro) return <p className="container aviso-erro">Não foi possível carregar os PETs: {erro}</p>
+
+  const campi = listarCampi(listaPets)
+  // Aplica os filtros e depois a ordenação (PETs desativados pelo CEPETUSP não aparecem)
   const petsVisiveis = listaPets
+    .filter((pet) => pet.ativo !== false)
     .filter((pet) => areasEscolhidas.length === 0 || areasEscolhidas.includes(pet.area))
     .filter((pet) => campus === '' || pet.campus === campus)
     .sort(ordem === 'az' ? compararNome : compararAno)

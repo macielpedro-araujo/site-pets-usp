@@ -9,11 +9,8 @@ import Institucional from './pages/Institucional/Institucional.jsx'
 import Entrar from './pages/Entrar/Entrar.jsx'
 import NotFound from './pages/NotFound/NotFound.jsx'
 import Creditos from './pages/Creditos/Creditos.jsx'
-import MeusPedidos from './pages/area/MeusPedidos.jsx'
-import NovoPedido from './pages/area/NovoPedido.jsx'
-import DetalhePedido from './pages/area/DetalhePedido.jsx'
+import EditarPagina from './pages/area/EditarPagina.jsx'
 import Painel from './pages/painel/Painel.jsx'
-import DetalhePainel from './pages/painel/DetalhePainel.jsx'
 
 // Rotas do site (SPEC §5). Todas usam o mesmo Layout (cabeçalho + rodapé).
 function App() {
@@ -28,17 +25,14 @@ function App() {
         <Route path="/creditos" element={<Creditos />} />
         <Route path="/entrar" element={<Entrar />} />
 
-        {/* Área do PET: só para contas com perfil "pet" */}
-        <Route element={<RotaProtegida perfil="pet" />}>
-          <Route path="/area-do-pet" element={<MeusPedidos />} />
-          <Route path="/area-do-pet/novo" element={<NovoPedido />} />
-          <Route path="/area-do-pet/pedidos/:id" element={<DetalhePedido />} />
+        {/* Área do PET: editor da página do próprio PET */}
+        <Route element={<RotaProtegida perfis={['pet']} />}>
+          <Route path="/area-do-pet" element={<EditarPagina />} />
         </Route>
 
-        {/* Painel do CEPETUSP: só para contas com perfil "cepet" */}
-        <Route element={<RotaProtegida perfil="cepet" />}>
+        {/* Painel do CEPETUSP */}
+        <Route element={<RotaProtegida perfis={['cepet']} />}>
           <Route path="/painel" element={<Painel />} />
-          <Route path="/painel/pedidos/:id" element={<DetalhePainel />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
