@@ -137,10 +137,9 @@ export default function Entrar() {
 
       {modoDemo && (
         <aside className={styles.demo} aria-labelledby="titulo-demo">
-          <h2 id="titulo-demo">Modo demonstração</h2>
+          <h2 id="titulo-demo">Contas de teste</h2>
           <p>
-            O site está rodando sem servidor: os dados ficam salvos só neste navegador. Use uma das contas de
-            teste (senha <code>{SENHA_DEMO}</code>):
+            Senha de todas: <code>{SENHA_DEMO}</code>. Clique numa conta para preencher o formulário.
           </p>
           <ul>
             {CONTAS_DEMO.map((conta) => (

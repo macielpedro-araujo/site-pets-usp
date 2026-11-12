@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { MODO_BETA } from '../../config.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { IconeMenu, IconeFechar } from '../icons/Icones.jsx'
 import styles from './Header.module.css'
@@ -35,11 +34,6 @@ export default function Header() {
               width="160"
               height="50"
             />
-            {MODO_BETA && (
-              <span className={styles.beta} title="Versão de demonstração">
-                Beta
-              </span>
-            )}
             <span className={styles.titulos}>
               <span className={styles.titulo}>Programa de Educação Tutorial</span>
               <span className={styles.subtitulo}>Na Universidade de São Paulo</span>

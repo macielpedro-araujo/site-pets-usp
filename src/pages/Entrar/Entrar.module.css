@@ -55,16 +55,17 @@
 
 .demo {
   width: 100%;
-  max-width: 340px;
-  padding: 24px;
-  background: #fff8e1;
-  border: 1px dashed var(--color-yellow);
+  max-width: 300px;
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .demo h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  color: #555;
 }
 
 .demo ul {

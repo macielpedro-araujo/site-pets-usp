@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import FaixaBeta from '../FaixaBeta/FaixaBeta.jsx'
 import Header from '../Header/Header.jsx'
 import Footer from '../Footer/Footer.jsx'
 import styles from './Layout.module.css'
@@ -19,7 +18,6 @@ export default function Layout() {
       <a href="#conteudo" className={styles.pular}>
         Pular para o conteúdo
       </a>
-      <FaixaBeta />
       <Header />
       <main id="conteudo" className={styles.main} tabIndex={-1}>
         <Outlet />
